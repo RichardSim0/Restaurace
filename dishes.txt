@@ -1,0 +1,10 @@
+Bryndzové halušky	12.10	25	bryndzove-halusky-01	MAIN_COURSE
+Špagety bolognese	14.20	20	spagety-bolognese-01	MAIN_COURSE
+Lasagne	13.30	30	lasagne-01	MAIN_COURSE
+Syrové cestoviny penne	8.40	20	penne-01	APPETIZER
+Bravčové kotlety	15.50	35	kotlety-01	MAIN_COURSE
+Pstruh na panvici	13.60	30	pstruh-01	MAIN_COURSE
+Kurací vývar	4.70	10	kuraci-vyvar-01	SOUP
+Ceazar šalát	7.80	15	cezar-salat-01	APPETIZER
+Tiramisu	6.90	10	tiramisu-01	DESSERT
+Aperol	5.00	5	aperol-01	DRINK
