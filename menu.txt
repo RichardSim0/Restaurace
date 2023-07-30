@@ -1,0 +1,5 @@
+Kurací vývar	4.70	10	kuraci-vyvar-01	SOUP
+Bravčové kotlety	15.50	35	kotlety-01	MAIN_COURSE
+Pstruh na panvici	13.60	30	pstruh-01	MAIN_COURSE
+Špagety bolognese	14.20	20	spagety-bolognese-01	MAIN_COURSE
+Aperol	5.00	5	aperol-01	DRINK

@@ -3,6 +3,7 @@ package com.engeto.restaurace;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Dish {
     private String title;
@@ -66,4 +67,16 @@ public class Dish {
     public void setCategory(DishCategory category) {
         this.category = category;
     }
+
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "title='" + title + '\'' +
+                ", price=" + price +
+                ", preparationTime=" + preparationTime +
+                ", image='" + image + '\'' +
+                ", category=" + category.getDescription() +
+                '}';
+    }
+
 }

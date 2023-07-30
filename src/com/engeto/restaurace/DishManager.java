@@ -2,8 +2,7 @@ package com.engeto.restaurace;
 
 import java.io.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Locale;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DishManager {
@@ -45,5 +44,8 @@ public class DishManager {
         } catch (IOException e) {
             throw new RestaurantException("Chyba pri zápise do súboru: "+fileName+"! "+e.getLocalizedMessage());
         }
+    }
+    public ArrayList<Dish> getDishRegister(){
+        return new ArrayList<Dish>(dishesRegister);
     }
 }
