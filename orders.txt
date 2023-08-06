@@ -1,6 +1,9 @@
 2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	true	null	
-2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	true	null	
-2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	true	null	
-2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	true	null	
-2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	true	null	
-2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	true	null	
+2	Dish{title='Bravčové kotlety', price=15.50, preparationTime=35, image='kotlety-01', category=hlavné jedlo}	2	2023-07-30T14:10	2023-07-30T14:45	false	null	
+2	Dish{title='Pstruh na panvici', price=13.60, preparationTime=30, image='pstruh-01', category=hlavné jedlo}	3	2023-07-30T14:15	2023-07-30T14:45	false	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	false	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	false	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	false	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	false	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	false	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	false	null	

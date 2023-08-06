@@ -37,7 +37,7 @@ public class OrdersManager {
     public Order get(int index){
         return ordersList.get(index);
     }
-    public ArrayList<Order> getOrdersList() {
-        return new ArrayList<Order>(ordersList);
+    public List<Order> getOrdersList() {
+        return new ArrayList<>(ordersList);
     }
 }
