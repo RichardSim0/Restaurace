@@ -1,4 +1,6 @@
-2	Dish{title='Bryndzové halušky', price=12.10, preparationTime=25, image='bryndzove-halusky-01', category=hlavné jedlo}	1	2023-07-30T14:05	2023-07-30T14:30	true	null	
-2	Dish{title='Bryndzové halušky', price=12.10, preparationTime=25, image='bryndzove-halusky-01', category=hlavné jedlo}	1	2023-07-30T14:05	2023-07-30T14:30	true	null	
-2	Dish{title='Bryndzové halušky', price=12.10, preparationTime=25, image='bryndzove-halusky-01', category=hlavné jedlo}	1	2023-07-30T14:05	2023-07-30T14:30	true	null	
-2	Dish{title='Bryndzové halušky', price=12.10, preparationTime=25, image='bryndzove-halusky-01', category=hlavné jedlo}	1	2023-07-30T14:05	2023-07-30T14:30	true	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	true	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	true	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	true	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	true	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	true	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-07-30T14:05	2023-07-30T14:15	true	null	

@@ -4,11 +4,13 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrdersManager {
     private List<Order> ordersList = new ArrayList<>();
+
     public void saveDataToOrdersFile(String fileName, String delimiter) throws RestaurantException {
         try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(fileName)))) {
             for (Order order : ordersList){
@@ -28,5 +30,14 @@ public class OrdersManager {
     }
     public void add(Order newOrder){
         ordersList.add(newOrder);
+    }
+    public void remove(int index){
+        ordersList.remove(index);
+    }
+    public Order get(int index){
+        return ordersList.get(index);
+    }
+    public ArrayList<Order> getOrdersList() {
+        return new ArrayList<Order>(ordersList);
     }
 }
