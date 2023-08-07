@@ -1,9 +1,9 @@
 import com.engeto.restaurace.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,9 +29,9 @@ public class Main {
         menu.add(dishManager.getDishRegister().get(9));
         Order order = new Order(2, menu.get(0), 1, LocalDateTime.of(2023, 7, 30, 14, 5), false, null);
 
-        Order order1 = new Order(2, menu.get(0), 1, LocalDateTime.of(2023, 7, 30, 14, 5), true, null);
-        Order order2 = new Order(2, menu.get(1), 2, LocalDateTime.of(2023, 7, 30, 14, 10), false, null);
-        Order order3 = new Order(2, menu.get(2), 3, LocalDateTime.of(2023, 7, 30, 14, 15), false, null);
+        Order order1 = new Order(2, menu.get(0), 1, LocalDateTime.of(2021, 7, 30, 14, 5), false, null);
+        Order order2 = new Order(2, menu.get(1), 2, LocalDateTime.of(2022, 7, 30, 14, 10), false, null);
+        Order order3 = new Order(2, menu.get(2), 3, LocalDateTime.of(2020, 7, 30, 14, 15), false, null);
 
         ordersManager.add(order1);
         ordersManager.add(order2);
@@ -60,6 +60,19 @@ public class Main {
         System.out.println("Po přidání objednávky: " + ordersManager.getOrdersList().size());
 
         System.out.println(restaurantManager.getListForManagement());
+        //zoradenie podľa času zadania
+        restaurantManager.sortOrdersByOrderedTime();
+        System.out.println(restaurantManager.getListForManagement());
+        //zoradenie podľa čašníka
+        restaurantManager.sortOrdersByWaiters();
+        System.out.println(restaurantManager.getListForManagement());
 
+        Map<Integer, BigDecimal> totalPricePerWaiter = restaurantManager.calculateTotalPricePerWaiter();
+        for (Map.Entry<Integer, BigDecimal> entry : totalPricePerWaiter.entrySet()) {
+            int waiterId = entry.getKey();
+            BigDecimal totalPrice = entry.getValue();
+            System.out.println("Waiter " + waiterId + ": Total Price = " + totalPrice);
+        }
+        System.out.println(restaurantManager.calculateAverageOrderedTime(LocalDateTime.of(2020,7,30,2,5),LocalDateTime.now()));
     }
 }

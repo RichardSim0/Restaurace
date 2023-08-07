@@ -2,7 +2,7 @@ package com.engeto.restaurace;
 
 import java.time.LocalDateTime;
 
-public class Order {
+public class Order implements Comparable<Order>{
     private int table;
     private Dish dish;
     private int waiter;
@@ -90,4 +90,8 @@ public class Order {
                 '}';
     }
 
+    @Override
+    public int compareTo(Order o) {
+        return this.orderedTime.compareTo(o.orderedTime);
+    }
 }
