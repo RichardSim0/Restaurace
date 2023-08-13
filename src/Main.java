@@ -1,9 +1,7 @@
 import com.engeto.restaurace.*;
 
 import java.math.BigDecimal;
-import java.time.Clock;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.Map;
 
 public class Main {
@@ -31,8 +29,8 @@ public class Main {
         Order order = new Order(2, menu.get(0), 1, LocalDateTime.now(), false, null);
 
         Order order1 = new Order(2, menu.get(0), 1, LocalDateTime.of(2021, 7, 30, 14, 5), false, null);
-        Order order2 = new Order(2, menu.get(1), 2, LocalDateTime.of(2022, 7, 30, 14, 10), false, null);
-        Order order3 = new Order(2, menu.get(2), 3, LocalDateTime.of(2020, 7, 30, 14, 15), false, null);
+        Order order2 = new Order(3, menu.get(1), 2, LocalDateTime.of(2022, 7, 30, 14, 10), false, null);
+        Order order3 = new Order(1, menu.get(2), 3, LocalDateTime.of(2020, 7, 30, 14, 15), false, null);
 
         ordersManager.add(order1);
         ordersManager.add(order2);
@@ -79,7 +77,7 @@ public class Main {
         System.out.println(restaurantManager.calculateTotalPricePerWaiter());
 
         try {
-            restaurantManager.exportOrdersForTableToFile(2,Settings.fileNameOrdersForTable());
+            restaurantManager.exportOrdersForTableToFile(3,Settings.fileNameOrdersForTable());
         } catch (RestaurantException e) {
             System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameOrdersForTable() + "!! " + e.getLocalizedMessage());
         }
