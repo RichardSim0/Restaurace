@@ -1,6 +1,7 @@
 import com.engeto.restaurace.*;
 
 import java.math.BigDecimal;
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class Main {
         menu.add(dishManager.getDishRegister().get(5));
         menu.add(dishManager.getDishRegister().get(1));
         menu.add(dishManager.getDishRegister().get(9));
-        Order order = new Order(2, menu.get(0), 1, LocalDateTime.of(2023, 7, 30, 14, 5), false, null);
+        Order order = new Order(2, menu.get(0), 1, LocalDateTime.now(), false, null);
 
         Order order1 = new Order(2, menu.get(0), 1, LocalDateTime.of(2021, 7, 30, 14, 5), false, null);
         Order order2 = new Order(2, menu.get(1), 2, LocalDateTime.of(2022, 7, 30, 14, 10), false, null);
@@ -74,5 +75,13 @@ public class Main {
             System.out.println("Waiter " + waiterId + ": Total Price = " + totalPrice);
         }
         System.out.println(restaurantManager.calculateAverageOrderedTime(LocalDateTime.of(2020,7,30,2,5),LocalDateTime.now()));
+        System.out.println(restaurantManager.getMealsOrderedToday());
+        System.out.println(restaurantManager.calculateTotalPricePerWaiter());
+
+        try {
+            restaurantManager.exportOrdersForTableToFile(2,Settings.fileNameOrdersForTable());
+        } catch (RestaurantException e) {
+            System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameOrdersForTable() + "!! " + e.getLocalizedMessage());
+        }
     }
 }

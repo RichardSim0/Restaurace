@@ -13,6 +13,10 @@ public class Settings {
     public static String fileNameOrders(){
         return "orders.txt";
     }
+    public static String fileNameOrdersForTable(){
+        return "ordersForTable.txt";
+    }
+
     public static String delimiter(){
         return "\t";
     }
