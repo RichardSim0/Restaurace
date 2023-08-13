@@ -43,23 +43,23 @@ public class RestaurantManager {
         }
         return totalPricePerWaiter;
     }
-    public LocalDateTime calculateAverageOrderedTime(LocalDateTime startTime, LocalDateTime endTime) {
+    public long calculateAverageOrderedTime(LocalDateTime startTime, LocalDateTime endTime) {
         int count = 0;
         BigDecimal totalOrderedTimeInMinutes = BigDecimal.ZERO;
         for (Order order : listForManagement) {
             LocalDateTime orderedTime = order.getOrderedTime();
             if (orderedTime.isAfter(startTime) && orderedTime.isBefore(endTime)) {
-                long minutes = startTime.until(orderedTime, ChronoUnit.MINUTES);
+                long minutes = orderedTime.until(order.getFulfilmentTime(), ChronoUnit.MINUTES);
                 totalOrderedTimeInMinutes = totalOrderedTimeInMinutes.add(BigDecimal.valueOf(minutes));
                 count++;
             }
         }
         if (count == 0) {
             // Návrat hodnoty null alebo iná správa v prípade, že nie sú žiadne objednávky v určenom období
-            return null;
+            return 0;
         }
         BigDecimal averageOrderedTimeInMinutes = totalOrderedTimeInMinutes.divide(BigDecimal.valueOf(count), 2, RoundingMode.HALF_UP);
-        return startTime.plusMinutes(averageOrderedTimeInMinutes.longValue());
+        return averageOrderedTimeInMinutes.longValue();
     }
 
     public List<Order> getListForManagement() {
