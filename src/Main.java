@@ -9,7 +9,7 @@ public class Main {
         DishManager dishManager = new DishManager();
         Menu menu = new Menu();
         OrdersManager ordersManager = new OrdersManager();
-        RestaurantManager restaurantManager = new RestaurantManager(ordersManager);
+        RestaurantManager restaurantManager = new RestaurantManager();
         try {
             dishManager.loadDataFromFile(Settings.fileNameDishes(), Settings.delimiter());
         } catch (RestaurantException e) {
@@ -47,6 +47,7 @@ public class Main {
         ordersManager.add(order);
         ordersManager.add(order);
         ordersManager.add(order);
+
         try {
             ordersManager.saveDataToOrdersFile(Settings.fileNameOrders(), Settings.delimiter());
         } catch (RestaurantException e) {
@@ -54,17 +55,17 @@ public class Main {
         }
         System.out.println(restaurantManager.pendingOrder());
 
-        System.out.println("Před přidáním objednávky: " + ordersManager.getOrdersList().size());
+        System.out.println("Před přidáním objednávky: " + ordersManager.getOrderList().size());
         ordersManager.add(order);
-        System.out.println("Po přidání objednávky: " + ordersManager.getOrdersList().size());
+        System.out.println("Po přidání objednávky: " + ordersManager.getOrderList().size());
 
-        System.out.println(restaurantManager.getListForManagement());
+        System.out.println(ordersManager.getOrderList());
         //zoradenie podľa času zadania
         restaurantManager.sortOrdersByOrderedTime();
-        System.out.println(restaurantManager.getListForManagement());
+        System.out.println(ordersManager.getOrderList());
         //zoradenie podľa čašníka
         restaurantManager.sortOrdersByWaiters();
-        System.out.println(restaurantManager.getListForManagement());
+        System.out.println(ordersManager.getOrderList());
 
         Map<Integer, BigDecimal> totalPricePerWaiter = restaurantManager.calculateTotalPricePerWaiter();
         for (Map.Entry<Integer, BigDecimal> entry : totalPricePerWaiter.entrySet()) {
@@ -77,7 +78,7 @@ public class Main {
         System.out.println(restaurantManager.calculateTotalPricePerWaiter());
 
         try {
-            restaurantManager.exportOrdersForTableToFile(3,Settings.fileNameOrdersForTable());
+            restaurantManager.exportOrdersForTableToFile(2,Settings.fileNameOrdersForTable());
         } catch (RestaurantException e) {
             System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameOrdersForTable() + "!! " + e.getLocalizedMessage());
         }
