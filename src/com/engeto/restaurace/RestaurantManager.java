@@ -14,6 +14,10 @@ import java.util.*;
 public class RestaurantManager {
     OrdersManager ordersManager = new OrdersManager();
 
+    public OrdersManager getOrdersManager() {
+        return ordersManager;
+    }
+
 //    /*/*/*/* AKTUáLNE ROZPRACOVANé A NEDOKONčENé OBJEDNáVKY *\*\*\*\
     public int pendingOrder() {
         List<Order> pendingOrdersList = new ArrayList<>();

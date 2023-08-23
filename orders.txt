@@ -1,9 +1,9 @@
 2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2021-07-30T14:05	2021-07-30T14:15	false	null	
 3	Dish{title='Bravčové kotlety', price=15.50, preparationTime=35, image='kotlety-01', category=hlavné jedlo}	2	2022-07-30T14:10	2022-07-30T14:45	false	null	
 1	Dish{title='Pstruh na panvici', price=13.60, preparationTime=30, image='pstruh-01', category=hlavné jedlo}	3	2020-07-30T14:15	2020-07-30T14:45	false	null	
-2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-08-22T22:12:33.624002	2023-08-22T22:22:33.624002	false	null	
-2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-08-22T22:12:33.624002	2023-08-22T22:22:33.624002	false	null	
-2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-08-22T22:12:33.624002	2023-08-22T22:22:33.624002	false	null	
-2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-08-22T22:12:33.624002	2023-08-22T22:22:33.624002	false	null	
-2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-08-22T22:12:33.624002	2023-08-22T22:22:33.624002	false	null	
-2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-08-22T22:12:33.624002	2023-08-22T22:22:33.624002	false	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-08-23T21:14:12.694778500	2023-08-23T21:24:12.694778500	false	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-08-23T21:14:12.694778500	2023-08-23T21:24:12.694778500	false	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-08-23T21:14:12.694778500	2023-08-23T21:24:12.694778500	false	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-08-23T21:14:12.694778500	2023-08-23T21:24:12.694778500	false	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-08-23T21:14:12.694778500	2023-08-23T21:24:12.694778500	false	null	
+2	Dish{title='Kurací vývar', price=4.70, preparationTime=10, image='kuraci-vyvar-01', category=polievka}	1	2023-08-23T21:14:12.694778500	2023-08-23T21:24:12.694778500	false	null	

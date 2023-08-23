@@ -8,8 +8,8 @@ public class Main {
     public static void main(String[] args) {
         DishManager dishManager = new DishManager();
         Menu menu = new Menu();
-        OrdersManager ordersManager = new OrdersManager();
         RestaurantManager restaurantManager = new RestaurantManager();
+        OrdersManager ordersManager = restaurantManager.getOrdersManager();
         try {
             dishManager.loadDataFromFile(Settings.fileNameDishes(), Settings.delimiter());
         } catch (RestaurantException e) {
