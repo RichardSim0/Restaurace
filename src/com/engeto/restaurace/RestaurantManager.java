@@ -12,16 +12,15 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class RestaurantManager {
-    OrdersManager ordersManager = new OrdersManager();
+    OrderManager orderManager = new OrderManager();
 
-    public OrdersManager getOrdersManager() {
-        return ordersManager;
+    public OrderManager getOrderManager() {
+        return orderManager;
     }
 
-//    /*/*/*/* AKTUáLNE ROZPRACOVANé A NEDOKONčENé OBJEDNáVKY *\*\*\*\
     public int pendingOrder() {
         List<Order> pendingOrdersList = new ArrayList<>();
-        for (Order order : ordersManager.getOrderList()) {
+        for (Order order : orderManager.getOrderList()) {
             if (order.getFulfilmentTime().isAfter(LocalDateTime.now())) {
                 pendingOrdersList.add(order);
             }
@@ -30,16 +29,16 @@ public class RestaurantManager {
     }
 
     public void sortOrdersByOrderedTime() {
-        Collections.sort(ordersManager.getOrderList());
+        Collections.sort(orderManager.getOrderList());
     }
 
     public void sortOrdersByWaiters(){
-        ordersManager.getOrderList().sort(new OrderWaiterComparator());
+        orderManager.getOrderList().sort(new OrderWaiterComparator());
     }
 
     public Map<Integer, BigDecimal> calculateTotalPricePerWaiter() {
         Map<Integer, BigDecimal> totalPricePerWaiter = new HashMap<>();
-        for (Order order : ordersManager.getOrderList()) {
+        for (Order order : orderManager.getOrderList()) {
             int waiterId = order.getWaiter();
             BigDecimal dishPrice = order.getDish().getPrice();
             BigDecimal totalPrice = totalPricePerWaiter.getOrDefault(waiterId, BigDecimal.ZERO);
@@ -51,7 +50,7 @@ public class RestaurantManager {
     public long calculateAverageOrderedTime(LocalDateTime startTime, LocalDateTime endTime) {
         int count = 0;
         BigDecimal totalOrderedTimeInMinutes = BigDecimal.ZERO;
-        for (Order order : ordersManager.getOrderList()) {
+        for (Order order : orderManager.getOrderList()) {
             LocalDateTime orderedTime = order.getOrderedTime();
             if (orderedTime.isAfter(startTime) && orderedTime.isBefore(endTime)) {
                 long minutes = orderedTime.until(order.getFulfilmentTime(), ChronoUnit.MINUTES);
@@ -69,7 +68,7 @@ public class RestaurantManager {
     public List<Order> getMealsOrderedToday() {
         List<Order> mealsOrderedToday = new ArrayList<>();
         LocalDate today = LocalDate.now();
-        for (Order order : ordersManager.getOrderList()) {
+        for (Order order : orderManager.getOrderList()) {
             LocalDateTime orderedTime = order.getOrderedTime();
             LocalDate orderedDate = orderedTime.toLocalDate();
             if (orderedDate.equals(today)) {
@@ -81,7 +80,7 @@ public class RestaurantManager {
     public void exportOrdersForTableToFile(int tableNumber, String fileName) throws RestaurantException {
         List<Order> ordersForTable = new ArrayList<>();
 
-        for (Order order : ordersManager.getOrderList()) {
+        for (Order order : orderManager.getOrderList()) {
             if (order.getTable() == tableNumber) {
                 ordersForTable.add(order);
             }
@@ -106,7 +105,7 @@ public class RestaurantManager {
                 int quantity = dishCounts.getOrDefault(dishKey, 0) + 1;
                 dishCounts.put(dishKey, quantity);
 
-                String quantityInfo = (quantity > 1) ? " " + quantity + "x" : ""; // Include "x" if quantity is greater than 1
+                String quantityInfo = (quantity > 1) ? " " + quantity + "x" : "";
                 String dishPrice = dish.getPrice() + " Kč";
 
                 writer.println(counter + "." + " " + dish.getTitle() + " " + quantityInfo + " "

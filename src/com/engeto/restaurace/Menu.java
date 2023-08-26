@@ -26,6 +26,11 @@ public class Menu {
             throw new RestaurantException("Chyba pri zápise do súboru: "+fileName+"! "+e.getLocalizedMessage());
         }
     }
+
+    public boolean isDishOnMenu(Dish dish) {
+        return menuList.contains(dish);
+    }
+
     public void add(Dish newDish){
         menuList.add(newDish);
     }
@@ -43,6 +48,6 @@ public class Menu {
     }
 
     public ArrayList<Dish> getMenuList() {
-        return new ArrayList<Dish>(menuList);
+        return new ArrayList<>(menuList);
     }
 }

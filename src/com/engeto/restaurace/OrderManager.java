@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrdersManager{
+public class OrderManager {
     private List<Order> orderList = new ArrayList<>();
 
     public void saveDataToOrdersFile(String fileName, String delimiter) throws RestaurantException {

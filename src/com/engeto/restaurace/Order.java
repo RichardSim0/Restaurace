@@ -2,23 +2,37 @@ package com.engeto.restaurace;
 
 import java.time.LocalDateTime;
 
+
 public class Order implements Comparable<Order>{
     private int table;
     private Dish dish;
+    private Menu menu;
     private int waiter;
     private LocalDateTime orderedTime;
     private LocalDateTime fulfilmentTime;
     private boolean isPaid;
     private String note;
 
-    public Order(int table, Dish dish, int waiter, LocalDateTime orderedTime, boolean isPaid, String note) {
+    public Order(int table,Menu menu, Dish dish, int waiter, boolean isPaid, String note) throws RestaurantException {
+        try{
         this.table = table;
+        this.menu = menu;
         this.dish = dish;
         this.waiter = waiter;
-        this.orderedTime = orderedTime;
+        this.orderedTime = LocalDateTime.now();
         this.fulfilmentTime = orderedTime.plusMinutes(dish.getPreparationTime());
         this.isPaid = isPaid;
         this.note = note;
+
+        if (!menu.isDishOnMenu(dish)) {
+            throw new RestaurantException("Toto jedlo nie je v menu a nemôže byť objednané.");
+        }
+
+        System.out.println("Objednávka pre " + dish.getTitle() + " bola prijatá.");
+
+    }catch (IllegalArgumentException e) {
+        throw new RestaurantException("Toto jedlo nie je v menu a nemôže byť objednané."+e.getLocalizedMessage());
+    }
     }
 
     public int getTable() {

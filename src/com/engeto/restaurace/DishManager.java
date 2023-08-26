@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DishManager {
-    DishesRegister dishesRegister = new DishesRegister();
+    DishRegister dishRegister = new DishRegister();
     public void loadDataFromFile (String fileName, String delimiter) throws RestaurantException {
         String line = "";
         String[] items = new String[0];
@@ -20,7 +20,7 @@ public class DishManager {
                 String image = items[3];
                 DishCategory category = DishCategory.valueOf(items[4]);
                 Dish newDish = new Dish(title, price, preparationTime, image, category);
-                dishesRegister.add(newDish);
+                dishRegister.add(newDish);
             }
         } catch (FileNotFoundException e) {
             throw new RestaurantException("Súbor: "+fileName+" sa nenašiel! "+e.getLocalizedMessage());
@@ -28,11 +28,13 @@ public class DishManager {
             throw new RestaurantException("Chybné číslo na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
         } catch (IllegalArgumentException e) {
             throw new RestaurantException("Chybne zadaná kategória jedla: \""+items[4]+"\" na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
+        } catch (ArrayIndexOutOfBoundsException e){
+            throw new RestaurantException("Súbor: "+fileName+" je prázdny! "+e.getLocalizedMessage());
         }
     }
     public void saveDataToFile(String fileName, String delimiter) throws RestaurantException {
         try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(fileName)))) {
-            for (Dish dish : dishesRegister){
+            for (Dish dish : dishRegister){
                 writer.println(
                         dish.getTitle()+delimiter
                         +dish.getPrice()+delimiter
@@ -45,7 +47,8 @@ public class DishManager {
             throw new RestaurantException("Chyba pri zápise do súboru: "+fileName+"! "+e.getLocalizedMessage());
         }
     }
-    public ArrayList<Dish> getDishRegister(){
-        return new ArrayList<Dish>(dishesRegister);
+    public DishRegister getDishRegister() {
+        return dishRegister;
     }
+
 }
