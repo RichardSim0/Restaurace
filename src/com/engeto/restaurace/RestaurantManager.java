@@ -59,7 +59,6 @@ public class RestaurantManager {
             }
         }
         if (count == 0) {
-            // Návrat hodnoty null alebo iná správa v prípade, že nie sú žiadne objednávky v určenom období
             return 0;
         }
         BigDecimal averageOrderedTimeInMinutes = totalOrderedTimeInMinutes.divide(BigDecimal.valueOf(count), 2, RoundingMode.HALF_UP);
@@ -94,19 +93,19 @@ public class RestaurantManager {
             writer.println("** Objednávky pro stůl č. " + tableNumberFormatted + " **");
             writer.println("****");
 
-            int counter = 1; // Counter for item numbers
+            int counter = 1;
 
-            Map<String, Integer> dishCounts = new HashMap<>(); // To track dish counts
+            Map<String, Integer> dishCounts = new HashMap<>();
 
             for (Order order : ordersForTable) {
                 Dish dish = order.getDish();
-                String dishKey = dish.getTitle() + " (" + dish.getPrice() + " Kč)";
+                String dishKey = dish.getTitle() + " (" + dish.getPrice() + " €)";
 
                 int quantity = dishCounts.getOrDefault(dishKey, 0) + 1;
                 dishCounts.put(dishKey, quantity);
 
                 String quantityInfo = (quantity > 1) ? " " + quantity + "x" : "";
-                String dishPrice = dish.getPrice() + " Kč";
+                String dishPrice = dish.getPrice() + " €";
 
                 writer.println(counter + "." + " " + dish.getTitle() + " " + quantityInfo + " "
                         + "(" + dishPrice + ")" + ":" + "\t"
