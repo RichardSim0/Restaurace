@@ -51,6 +51,14 @@ public class Order implements Comparable<Order>{
         this.dish = dish;
     }
 
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
     public int getWaiter() {
         return waiter;
     }
