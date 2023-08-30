@@ -1,38 +1,44 @@
 package com.engeto.restaurace;
 
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order implements Comparable<Order>{
     private int table;
-    private Dish dish;
+    private List<Dish> dishes;
     private Menu menu;
-    private int waiter;
+    private List<Waiter> waiters;
     private LocalDateTime orderedTime;
     private LocalDateTime fulfilmentTime;
     private boolean isPaid;
     private String note;
 
-    public Order(int table,Menu menu, Dish dish, int waiter, boolean isPaid, String note) throws RestaurantException {
+    public Order(int table, Menu menu, List<Dish> dishes, List<Waiter> waiters, boolean isPaid, String note) throws RestaurantException {
         try{
         this.table = table;
         this.menu = menu;
-        this.dish = dish;
-        this.waiter = waiter;
+        this.dishes = new ArrayList<>(dishes);
+        this.waiters = waiters;
         this.orderedTime = LocalDateTime.now();
-        this.fulfilmentTime = orderedTime.plusMinutes(dish.getPreparationTime());
+            int preparationTime = 0;
+            for (Dish dish : dishes) {
+                preparationTime = dish.getPreparationTime();
+            }
+            this.fulfilmentTime = orderedTime.plusMinutes(preparationTime);
         this.isPaid = isPaid;
         this.note = note;
 
-        if (!menu.isDishOnMenu(dish)) {
-            throw new RestaurantException("Toto jedlo nie je v menu a nemôže byť objednané.");
+            for (Dish dish : dishes) {
+                if (!menu.isDishOnMenu(dish)) {
+                    throw new RestaurantException("Toto jedlo nie je v menu a nemôže byť objednané.");
+                }
+            }
+
+            System.out.println("Objednávka pre viacero jedál bola prijatá.");
+        } catch (IllegalArgumentException e) {
+            throw new RestaurantException("Toto jedlo nie je v menu a nemôže byť objednané." + e.getLocalizedMessage());
         }
-
-        System.out.println("Objednávka pre " + dish.getTitle() + " bola prijatá.");
-
-    }catch (IllegalArgumentException e) {
-        throw new RestaurantException("Toto jedlo nie je v menu a nemôže byť objednané."+e.getLocalizedMessage());
-    }
     }
 
     public int getTable() {
@@ -43,12 +49,8 @@ public class Order implements Comparable<Order>{
         this.table = table;
     }
 
-    public Dish getDish() {
-        return dish;
-    }
-
-    public void setDish(Dish dish) {
-        this.dish = dish;
+    public List<Dish> getDishes() {
+        return dishes;
     }
 
     public Menu getMenu() {
@@ -59,12 +61,12 @@ public class Order implements Comparable<Order>{
         this.menu = menu;
     }
 
-    public int getWaiter() {
-        return waiter;
+    public List<Waiter> getWaiters() {
+        return waiters;
     }
 
-    public void setWaiter(int waiter) {
-        this.waiter = waiter;
+    public void addWaiter(Waiter waiter) {
+        waiters.add(waiter);
     }
 
     public LocalDateTime getOrderedTime() {
@@ -103,8 +105,9 @@ public class Order implements Comparable<Order>{
     public String toString() {
         return "Order{" +
                 "table=" + table +
-                ", dish=" + dish +
-                ", waiter=" + waiter +
+                ", dishes=" + dishes +
+                ", menu=" + menu +
+                ", waiters=" + waiters +
                 ", orderedTime=" + orderedTime +
                 ", fulfilmentTime=" + fulfilmentTime +
                 ", isPaid=" + isPaid +

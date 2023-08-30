@@ -1,4 +1,6 @@
 ** Objednávky pro stůl č.  2 **
 ****
-
+1. Kuřecí řízek obalovaný 150 g  (6.5 Kč):	14:53-14:55	číšník č. [Waiter{id=1, name='Čašník1'}, Waiter{id=2, name='Čašník2'}]
+2. Hranolky 150 g  (2.7 Kč):	14:53-14:55	číšník č. [Waiter{id=1, name='Čašník1'}, Waiter{id=2, name='Čašník2'}]
+3. Kofola 0,5 l  (2.5 Kč):	14:53-14:55	číšník č. [Waiter{id=1, name='Čašník1'}, Waiter{id=2, name='Čašník2'}]
 ******

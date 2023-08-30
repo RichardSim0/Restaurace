@@ -39,14 +39,23 @@ public class RestaurantManager {
     public Map<Integer, BigDecimal> calculateTotalPricePerWaiter() {
         Map<Integer, BigDecimal> totalPricePerWaiter = new HashMap<>();
         for (Order order : orderManager.getOrderList()) {
-            int waiterId = order.getWaiter();
-            BigDecimal dishPrice = order.getDish().getPrice();
-            BigDecimal totalPrice = totalPricePerWaiter.getOrDefault(waiterId, BigDecimal.ZERO);
-            totalPrice = totalPrice.add(dishPrice);
-            totalPricePerWaiter.put(waiterId, totalPrice);
+            List<Waiter> waiters = order.getWaiters();
+            List<Dish> dishes = order.getDishes();
+
+            for (Waiter waiter : waiters) {
+                int waiterId = waiter.getId();
+
+                for (Dish dish : dishes) {
+                    BigDecimal dishPrice = dish.getPrice();
+                    BigDecimal totalPrice = totalPricePerWaiter.getOrDefault(waiterId, BigDecimal.ZERO);
+                    totalPrice = totalPrice.add(dishPrice);
+                    totalPricePerWaiter.put(waiterId, totalPrice);
+                }
+            }
         }
         return totalPricePerWaiter;
     }
+
     public long calculateAverageOrderedTime(LocalDateTime startTime, LocalDateTime endTime) {
         int count = 0;
         BigDecimal totalOrderedTimeInMinutes = BigDecimal.ZERO;
@@ -98,27 +107,30 @@ public class RestaurantManager {
             Map<String, Integer> dishCounts = new HashMap<>();
 
             for (Order order : ordersForTable) {
-                Dish dish = order.getDish();
-                String dishKey = dish.getTitle() + " (" + dish.getPrice() + " €)";
+                List<Dish> dishes = order.getDishes();
 
-                int quantity = dishCounts.getOrDefault(dishKey, 0) + 1;
-                dishCounts.put(dishKey, quantity);
+                for (Dish dish : dishes) {
+                    String dishKey = dish.getTitle() + " (" + dish.getPrice() + " Kč)";
 
-                String quantityInfo = (quantity > 1) ? " " + quantity + "x" : "";
-                String dishPrice = dish.getPrice() + " €";
+                    int quantity = dishCounts.getOrDefault(dishKey, 0) + 1;
+                    dishCounts.put(dishKey, quantity);
 
-                writer.println(counter + "." + " " + dish.getTitle() + " " + quantityInfo + " "
-                        + "(" + dishPrice + ")" + ":" + "\t"
-                        + order.getOrderedTime().format(timeFormatter) + "-"
-                        + order.getFulfilmentTime().format(timeFormatter) + "\t"
-                        + "číšník č. " + order.getWaiter());
+                    String quantityInfo = (quantity > 1) ? " " + quantity + "x" : "";
+                    String dishPrice = dish.getPrice() + " Kč";
 
-                counter++;
+                    writer.println(counter + "." + " " + dish.getTitle() + " " + quantityInfo + " "
+                            + "(" + dishPrice + ")" + ":" + "\t"
+                            + order.getOrderedTime().format(timeFormatter) + "-"
+                            + order.getFulfilmentTime().format(timeFormatter) + "\t"
+                            + "číšník č. " + order.getWaiters());
+
+                    counter++;
+                }
             }
 
             writer.println("******");
         } catch (IOException e) {
-            throw new RestaurantException("Chyba pri zápise do súboru: "+fileName+"! "+e.getLocalizedMessage());
+            throw new RestaurantException("Chyba pri zápise do súboru: " + fileName + "! " + e.getLocalizedMessage());
         }
     }
 }

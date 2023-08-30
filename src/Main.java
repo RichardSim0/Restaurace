@@ -1,6 +1,7 @@
 import com.engeto.restaurace.*;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,6 +10,9 @@ public class Main {
         Menu menu = new Menu();
         RestaurantManager restaurantManager = new RestaurantManager();
         OrderManager orderManager = restaurantManager.getOrderManager();
+
+        Waiter waiter1 = new Waiter(1, "Čašník1");
+        Waiter waiter2 = new Waiter(2, "Čašník2");
 
         try {
             dishManager.loadDataFromFile(Settings.fileNameDishes(),Settings.delimiter());
@@ -32,13 +36,18 @@ public class Main {
         try {
             dishManager.saveDataToFile(Settings.fileNameDishes(),Settings.delimiter());
         } catch (RestaurantException e) {
-            System.err.println("Problé pri zápise do súboru:"+Settings.fileNameDishes()+" ! ---> "+e.getLocalizedMessage());
+            System.err.println("Problém pri zápise do súboru:"+Settings.fileNameDishes()+" ! ---> "+e.getLocalizedMessage());
         }
 
         try {
-            Order order = new Order(15,menu,rizek, 2,false,null);
+            orderManager.add(new Order(2,menu,Arrays.asList(rizek,hranolky,kofola), Arrays.asList(waiter1,waiter2), false,null));
         } catch (RestaurantException e) {
-            System.err.println("Nie je možné vytvoriť objednávku! "+e.getLocalizedMessage());
+            System.err.println("Chyba pri vytváraní objednávky: " + e.getLocalizedMessage());
+        }
+        try {
+            restaurantManager.exportOrdersForTableToFile(2, Settings.fileNameOrdersForTable());
+        } catch (RestaurantException e) {
+            System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameOrdersForTable() + "! --->" + e.getLocalizedMessage());
         }
     }
 }

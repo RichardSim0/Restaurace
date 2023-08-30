@@ -6,25 +6,37 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderManager {
     private List<Order> orderList = new ArrayList<>();
 
     public void saveDataToOrdersFile(String fileName, String delimiter) throws RestaurantException {
         try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(fileName)))) {
-            for (Order order : orderList){
+            for (Order order : orderList) {
+                List<Waiter> waiters = order.getWaiters();
+                String waitersInfo = waiters.stream()
+                        .map(waiter -> String.valueOf(waiter.getId()))
+                        .collect(Collectors.joining(", "));
+
+                List<Dish> dishes = order.getDishes();
+
+                String dishesInfo = dishes.stream()
+                        .map(Dish::getTitle)
+                        .collect(Collectors.joining(", "));
+
                 writer.println(
-                        order.getTable()+delimiter
-                        +order.getDish()+delimiter
-                        +order.getWaiter()+delimiter
-                        +order.getOrderedTime()+delimiter
-                        +order.getFulfilmentTime()+delimiter
-                        +order.isPaid()+delimiter
-                        +order.getNote()+delimiter
+                        order.getTable() + delimiter +
+                                dishesInfo + delimiter +
+                                waitersInfo + delimiter +
+                                order.getOrderedTime() + delimiter +
+                                order.getFulfilmentTime() + delimiter +
+                                order.isPaid() + delimiter +
+                                order.getNote() + delimiter
                 );
             }
         } catch (IOException e) {
-                throw new RestaurantException("Chyba pri zápise do súboru: " + fileName + " ! " + e.getLocalizedMessage());
+            throw new RestaurantException("Chyba pri zápise do súboru: " + fileName + " ! " + e.getLocalizedMessage());
         }
     }
     public void add(Order newOrder){
