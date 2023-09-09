@@ -51,4 +51,9 @@ public class OrderManager {
     public List<Order> getOrderList() {
         return new ArrayList<>(orderList);
     }
+
+    @Override
+    public String toString() {
+        return "" + orderList;
+    }
 }

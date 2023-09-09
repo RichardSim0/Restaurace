@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class RestaurantManager {
     OrderManager orderManager = new OrderManager();
@@ -18,7 +19,7 @@ public class RestaurantManager {
         return orderManager;
     }
 
-    public int pendingOrder() {
+    public long pendingOrder() {
         List<Order> pendingOrdersList = new ArrayList<>();
         for (Order order : orderManager.getOrderList()) {
             if (order.getFulfilmentTime().isAfter(LocalDateTime.now())) {
@@ -104,27 +105,41 @@ public class RestaurantManager {
 
             int counter = 1;
 
-            Map<String, Integer> dishCounts = new HashMap<>();
+
+            List<Dish> currentOrderDishes = new ArrayList<>();
 
             for (Order order : ordersForTable) {
                 List<Dish> dishes = order.getDishes();
+                List<Waiter> waiters = order.getWaiters();
 
                 for (Dish dish : dishes) {
-                    String dishKey = dish.getTitle() + " (" + dish.getPrice() + " Kč)";
 
-                    int quantity = dishCounts.getOrDefault(dishKey, 0) + 1;
-                    dishCounts.put(dishKey, quantity);
+                    if (currentOrderDishes.contains(dish)) {
+                        continue;
+                    }
 
-                    String quantityInfo = (quantity > 1) ? " " + quantity + "x" : "";
-                    String dishPrice = dish.getPrice() + " Kč";
+                    int quantity = Collections.frequency(dishes, dish);
 
-                    writer.println(counter + "." + " " + dish.getTitle() + " " + quantityInfo + " "
-                            + "(" + dishPrice + ")" + ":" + "\t"
-                            + order.getOrderedTime().format(timeFormatter) + "-"
-                            + order.getFulfilmentTime().format(timeFormatter) + "\t"
-                            + "číšník č. " + order.getWaiters());
+                    LocalDateTime dishPreparationTime = order.getOrderedTime().plusMinutes(dish.getPreparationTime());
+                    String dishPrice = dish.getPrice()+" Kč";
+
+                    String waiterInfo = waiters.stream()
+                            .map(waiter -> String.valueOf(waiter.getId()))
+                            .collect(Collectors.joining(", "));
+
+                    writer.println(counter + "." + " "
+                            + dish.getTitle() + " "
+                            + (quantity > 1 ? quantity + "x" : "") + " "
+                            + "(" + dishPrice + ")"
+                            + ":" + "\t"
+                            + order.getOrderedTime().format(timeFormatter)
+                            + "-"
+                            + dishPreparationTime.format(timeFormatter) + "\t"
+                            + "číšník č. " + waiterInfo);
 
                     counter++;
+
+                    currentOrderDishes.add(dish);
                 }
             }
 
@@ -132,5 +147,25 @@ public class RestaurantManager {
         } catch (IOException e) {
             throw new RestaurantException("Chyba pri zápise do súboru: " + fileName + "! " + e.getLocalizedMessage());
         }
+    }
+    public BigDecimal calculateTotalPriceForTable(int tableNumber) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+
+        for (Order order : orderManager.getOrderList()) {
+            if (order.getTable() == tableNumber) {
+                List<Dish> dishes = order.getDishes();
+
+                for (Dish dish : dishes) {
+                    totalPrice = totalPrice.add(dish.getPrice());
+                }
+            }
+        }
+
+        return totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return ""+orderManager;
     }
 }

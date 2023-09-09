@@ -50,4 +50,10 @@ public class Menu {
     public ArrayList<Dish> getMenuList() {
         return new ArrayList<>(menuList);
     }
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "menuList=" + menuList +
+                '}';
+    }
 }

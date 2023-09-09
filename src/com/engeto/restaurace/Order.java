@@ -14,13 +14,13 @@ public class Order implements Comparable<Order>{
     private boolean isPaid;
     private String note;
 
-    public Order(int table, Menu menu, List<Dish> dishes, List<Waiter> waiters, boolean isPaid, String note) throws RestaurantException {
+    public Order(int table, Menu menu, List<Dish> dishes, List<Waiter> waiters, LocalDateTime orderedTime, boolean isPaid, String note) throws RestaurantException {
         try{
         this.table = table;
         this.menu = menu;
         this.dishes = new ArrayList<>(dishes);
         this.waiters = waiters;
-        this.orderedTime = LocalDateTime.now();
+        this.orderedTime = orderedTime;
             int preparationTime = 0;
             for (Dish dish : dishes) {
                 preparationTime = dish.getPreparationTime();

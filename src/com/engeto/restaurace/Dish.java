@@ -68,7 +68,7 @@ public class Dish {
     @Override
     public String toString() {
         return "Dish{" +
-                "title='" + title + '\'' +
+                title +
                 ", price=" + price +
                 ", preparationTime=" + preparationTime +
                 ", image='" + image + '\'' +
