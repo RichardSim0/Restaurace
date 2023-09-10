@@ -78,5 +78,27 @@ public class Main {
         } catch (RestaurantException e) {
             System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameOrdersForTable() + " !!! \n "+ e.getLocalizedMessage());
         }
+//        6. Úloha
+        try {
+            dishManager.saveDataToFile(Settings.fileNameDishes(),Settings.delimiter());
+        } catch (RestaurantException e) {
+            System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameDishes() + " !!! \n " + e.getLocalizedMessage());
+        }
+        try {
+            menu.saveDataToMenuFile(Settings.fileNameMenu(),Settings.delimiter());
+        } catch (RestaurantException e) {
+            System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameMenu() + " !!! \n " + e.getLocalizedMessage());
+        }
+        try {
+            orderManager.saveDataToOrdersFile(Settings.fileNameOrders(),Settings.delimiter());
+        } catch (RestaurantException e) {
+            System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameOrders() + " !!! \n " + e.getLocalizedMessage());
+        }
+//        9. Úloha
+        try {
+            dishManager.loadDataFromFile(Settings.fileNameOrders(),Settings.delimiter());
+        } catch (RestaurantException e) {
+            System.err.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameOrders()+" ! ---> "+e.getLocalizedMessage());
+        }
     }
 }
