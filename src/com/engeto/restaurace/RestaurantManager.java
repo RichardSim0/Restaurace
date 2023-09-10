@@ -74,18 +74,26 @@ public class RestaurantManager {
         BigDecimal averageOrderedTimeInMinutes = totalOrderedTimeInMinutes.divide(BigDecimal.valueOf(count), 2, RoundingMode.HALF_UP);
         return averageOrderedTimeInMinutes.longValue();
     }
-    public List<Order> getMealsOrderedToday() {
-        List<Order> mealsOrderedToday = new ArrayList<>();
+    public List<String> getMealsOrderedToday() {
+        List<String> mealNamesOrderedToday = new ArrayList<>();
         LocalDate today = LocalDate.now();
+
         for (Order order : orderManager.getOrderList()) {
             LocalDateTime orderedTime = order.getOrderedTime();
             LocalDate orderedDate = orderedTime.toLocalDate();
+
             if (orderedDate.equals(today)) {
-                mealsOrderedToday.add(order);
+                List<Dish> dishes = order.getDishes();
+                for (Dish dish : dishes) {
+                    String dishTitle = dish.getTitle();
+                    mealNamesOrderedToday.add(dishTitle);
+                }
             }
         }
-        return mealsOrderedToday;
+
+        return mealNamesOrderedToday;
     }
+
     public void exportOrdersForTableToFile(int tableNumber, String fileName) throws RestaurantException {
         List<Order> ordersForTable = new ArrayList<>();
 

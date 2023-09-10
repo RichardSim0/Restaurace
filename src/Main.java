@@ -39,7 +39,7 @@ public class Main {
         menu.add(kofola);
 //        ---objednávka na stôl č.15
         try {
-            orderManager.add(new Order(15,menu,List.of(rizek,rizek,hranolky,hranolky,kofola,kofola), List.of(waiter1),LocalDateTime.of(2020,9,9,13,10), false, "Zákazníkom sa páči výzdoba reštaurácie."));
+            orderManager.add(new Order(15,menu,List.of(rizek,rizek,hranolky,hranolky,kofola,kofola), List.of(waiter1),LocalDateTime.now(), false, "Zákazníkom sa páči výzdoba reštaurácie."));
         } catch (RestaurantException e) {
             System.err.println("Chyba pri vytváraní objednávky: " + e.getLocalizedMessage());
         }
@@ -69,9 +69,14 @@ public class Main {
 //        ---celková cena objednávok pre jednotlivých čašníkov
         System.out.println("Celková cena objednávok pre jednotlivých čašníkov: " + "\n" + restaurantManager.calculateTotalPricePerWaiter());
 //        ---priemerná doba zpracovania objednávok
-        System.out.println("Priemerná doba zpracovania objednávok v minútach: " + "\n" + restaurantManager.calculateAverageOrderedTime(LocalDateTime.of(2002, 8, 8, 10, 2), LocalDateTime.now()));
-
-
-
+        System.out.println("Priemerná doba zpracovania objednávok v minútach: " + "\n" + restaurantManager.calculateAverageOrderedTime(LocalDateTime.of(2002, 2, 12, 12, 0), LocalDateTime.now()));
+//        ---zoznam jedál, ktroé boli dnes objednané
+        System.out.println("Zoznam jedál, ktroé boli dnes objednané: " + "\n" + restaurantManager.getMealsOrderedToday());
+//        ---export zoznamu objednávok pre jeden stôl
+        try {
+            restaurantManager.exportOrdersForTableToFile(15,Settings.fileNameOrdersForTable());
+        } catch (RestaurantException e) {
+            System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameOrdersForTable() + " !!! \n "+ e.getLocalizedMessage());
+        }
     }
 }
