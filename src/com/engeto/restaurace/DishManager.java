@@ -2,12 +2,11 @@ package com.engeto.restaurace;
 
 import java.io.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class DishManager {
     DishRegister dishRegister = new DishRegister();
-    public void loadDataFromFile (String fileName, String delimiter) throws RestaurantException {
+    public void loadDataFromFileDishes(String fileName, String delimiter) throws RestaurantException {
         String line = "";
         String[] items = new String[0];
         try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(fileName)))) {
@@ -32,7 +31,7 @@ public class DishManager {
             throw new RestaurantException("Súbor: "+fileName+" je prázdny! "+e.getLocalizedMessage());
         }
     }
-    public void saveDataToFile(String fileName, String delimiter) throws RestaurantException {
+    public void saveDataToFileDishes(String fileName, String delimiter) throws RestaurantException {
         try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(fileName)))) {
             for (Dish dish : dishRegister){
                 writer.println(

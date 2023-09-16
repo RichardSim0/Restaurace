@@ -2,8 +2,6 @@ import com.engeto.restaurace.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -14,13 +12,18 @@ public class Main {
         RestaurantManager restaurantManager = new RestaurantManager();
         OrderManager orderManager = restaurantManager.getOrderManager();
 
-        Waiter waiter1 = new Waiter(1, "Čašník1");
-        Waiter waiter2 = new Waiter(2, "Čašník2");
+        Waiter waiter1 = new Waiter(1, "Richard");
+        Waiter waiter2 = new Waiter(2, "Daniel");
 //        1. Úloha
         try {
-            dishManager.loadDataFromFile(Settings.fileNameDishes(),Settings.delimiter());
+            dishManager.loadDataFromFileDishes(Settings.fileNameDishes(),Settings.delimiter());
         } catch (RestaurantException e) {
             System.err.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameDishes()+" ! ---> "+e.getLocalizedMessage());
+        }
+        try {
+            menu.loadDataFromFileMenu(Settings.fileNameMenu(),Settings.delimiter());
+        } catch (RestaurantException e) {
+            System.err.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameMenu()+" ! ---> "+e.getLocalizedMessage());
         }
 //        2. Úloha
 //        ---jedlá
@@ -80,12 +83,12 @@ public class Main {
         }
 //        6. Úloha
         try {
-            dishManager.saveDataToFile(Settings.fileNameDishes(),Settings.delimiter());
+            dishManager.saveDataToFileDishes(Settings.fileNameDishes(),Settings.delimiter());
         } catch (RestaurantException e) {
             System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameDishes() + " !!! \n " + e.getLocalizedMessage());
         }
         try {
-            menu.saveDataToMenuFile(Settings.fileNameMenu(),Settings.delimiter());
+            menu.saveDataToFileMenu(Settings.fileNameMenu(),Settings.delimiter());
         } catch (RestaurantException e) {
             System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameMenu() + " !!! \n " + e.getLocalizedMessage());
         }
@@ -96,7 +99,7 @@ public class Main {
         }
 //        9. Úloha
         try {
-            dishManager.loadDataFromFile(Settings.fileNameOrders(),Settings.delimiter());
+            dishManager.loadDataFromFileDishes(Settings.fileNameOrders(),Settings.delimiter());
         } catch (RestaurantException e) {
             System.err.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameOrders()+" ! ---> "+e.getLocalizedMessage());
         }
