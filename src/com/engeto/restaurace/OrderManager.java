@@ -1,11 +1,12 @@
 package com.engeto.restaurace;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.regex.PatternSyntaxException;
 import java.util.stream.Collectors;
 
 public class OrderManager {
@@ -39,14 +40,58 @@ public class OrderManager {
             throw new RestaurantException("Chyba pri zápise do súboru: " + fileName + " ! " + e.getLocalizedMessage());
         }
     }
+    public void loadDataFromOrdersFile(String fileName, String delimiter) throws RestaurantException {
+        String line = "";
+        String[] items;
+        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(fileName)))) {
+            while (scanner.hasNextLine()) {
+                line = scanner.nextLine();
+                items = line.split(delimiter);
+                if (items.length != 7) {
+                    throw new RestaurantException("Chybný formát v souboru na riadku: " + line);
+                }
+
+                int table = Integer.parseInt(items[0]);
+
+                String[] dishTitles = items[1].split(", ");
+                List<Dish> dishes = new ArrayList<>();
+                for (String dishTitle : dishTitles) {
+                    Dish dish = Dish.getDishByTitle(dishTitle);
+                        dishes.add(dish);
+                }
+
+                List<Waiter> waiters = new ArrayList<>();
+                String[] waiterIds = items[2].split(", ");
+                for (String waiterId : waiterIds) {
+                    int id = Integer.parseInt(waiterId);
+                    Waiter waiter = Waiter.getWaiterById(id);
+                    if (waiter != null) {
+                        waiters.add(waiter);
+                    }
+                }
+
+                LocalDateTime orderedTime = LocalDateTime.parse(items[3]);
+                LocalDateTime fulfilmentTime = LocalDateTime.parse(items[4]);
+                boolean isPaid = Boolean.parseBoolean(items[5]);
+                String note = items[6];
+
+                Order order = new Order(table, dishes, waiters, orderedTime,fulfilmentTime, isPaid, note);
+                order.setFulfilmentTime(fulfilmentTime);
+
+                orderList.add(order);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RestaurantException("Súbor: " + fileName + " se nepodarilo nájsť: " + e.getLocalizedMessage());
+        } catch (NumberFormatException e) {
+            throw new RestaurantException("Chybný formát čísla na riadku: "+ line + e.getLocalizedMessage());
+        } catch (PatternSyntaxException e) {
+            throw new RestaurantException("Chyba pri čítaní súboru: "+ fileName +" na riadku: " + line + " ! "+ e.getLocalizedMessage());
+        } catch (DateTimeParseException e) {
+            throw new RestaurantException("Chybný formát času v súbore: "+ fileName + "na riadku: " + line +" ! "+ e.getLocalizedMessage());
+        }
+    }
     public void add(Order newOrder){
         orderList.add(newOrder);
-    }
-    public void remove(int index){
-        orderList.remove(index);
-    }
-    public Order get(int index){
-        return orderList.get(index);
     }
     public List<Order> getOrderList() {
         return new ArrayList<>(orderList);

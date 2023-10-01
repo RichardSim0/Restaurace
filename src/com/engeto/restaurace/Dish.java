@@ -1,28 +1,42 @@
 package com.engeto.restaurace;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Dish {
     private String title;
     private BigDecimal price;
     private int preparationTime;
-    private String image;
+    private List<String> images;
     private DishCategory category;
 
     public Dish(String title, BigDecimal price, int preparationTime, String image, DishCategory category) {
         this.title = title;
         this.price = price;
         this.preparationTime = preparationTime;
-        this.image = image;
-        this.category = category;
+        this.images = new ArrayList<>();
+        if (image != null && !image.isEmpty()) {
+            this.images.add(image);
+        }        this.category = category;
     }
 
     public Dish(String title, BigDecimal price, int preparationTime, DishCategory category) {
         this.title = title;
         this.price = price;
         this.preparationTime = preparationTime;
-        this.image = "blank";
+        this.images = new ArrayList<>();
+        this.images.add("blank");
         this.category = category;
+    }
+
+    public static Dish getDishByTitle(String title) {
+        for (Dish dish : Menu.menuList) {
+            if (dish.getTitle().equals(title)) {
+                return dish;
+            }
+        }
+        return null;
     }
 
     public String getTitle() {
@@ -49,12 +63,18 @@ public class Dish {
         this.preparationTime = preparationTime;
     }
 
-    public String getImage() {
-        return image;
+    public List<String> getImages() {
+        return images;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void addImage(String image) {
+            this.images.add(image);
+    }
+
+    public void removeImage(String image) {
+        if (this.images.size() > 1 && this.images.contains(image)) {
+            this.images.remove(image);
+        }
     }
 
     public DishCategory getCategory() {
@@ -71,7 +91,7 @@ public class Dish {
                 title +
                 ", price=" + price +
                 ", preparationTime=" + preparationTime +
-                ", image='" + image + '\'' +
+                ", images='" + images + '\'' +
                 ", category=" + category.getDescription() +
                 '}';
     }

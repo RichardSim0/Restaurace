@@ -113,7 +113,6 @@ public class RestaurantManager {
 
             int counter = 1;
 
-
             List<Dish> currentOrderDishes = new ArrayList<>();
 
             for (Order order : ordersForTable) {
@@ -128,7 +127,7 @@ public class RestaurantManager {
 
                     int quantity = Collections.frequency(dishes, dish);
 
-                    LocalDateTime dishPreparationTime = order.getOrderedTime().plusMinutes(dish.getPreparationTime());
+                    LocalDateTime dishFulfilmentTime = order.getOrderedTime().plusMinutes(dish.getPreparationTime());
                     String dishPrice = dish.getPrice()+" Kč";
 
                     String waiterInfo = waiters.stream()
@@ -142,7 +141,7 @@ public class RestaurantManager {
                             + ":" + "\t"
                             + order.getOrderedTime().format(timeFormatter)
                             + "-"
-                            + dishPreparationTime.format(timeFormatter) + "\t"
+                            + dishFulfilmentTime.format(timeFormatter) + "\t"
                             + "číšník č. " + waiterInfo);
 
                     counter++;
@@ -156,20 +155,23 @@ public class RestaurantManager {
             throw new RestaurantException("Chyba pri zápise do súboru: " + fileName + "! " + e.getLocalizedMessage());
         }
     }
-    public BigDecimal calculateTotalPriceForTable(int tableNumber) {
-        BigDecimal totalPrice = BigDecimal.ZERO;
+    public BigDecimal calculateTotalPriceForTable(int tableNumber) throws RestaurantException {
+        try {
+            BigDecimal totalPrice = BigDecimal.ZERO;
 
-        for (Order order : orderManager.getOrderList()) {
-            if (order.getTable() == tableNumber) {
-                List<Dish> dishes = order.getDishes();
+            for (Order order : orderManager.getOrderList()) {
+                if (order.getTable() == tableNumber) {
+                    List<Dish> dishes = order.getDishes();
 
-                for (Dish dish : dishes) {
-                    totalPrice = totalPrice.add(dish.getPrice());
+                    for (Dish dish : dishes) {
+                        totalPrice = totalPrice.add(dish.getPrice());
+                    }
                 }
             }
+            return totalPrice;
+        } catch (NullPointerException e){
+            throw new RestaurantException("Pri stole: "+ tableNumber + " nastala chyba! " + e.getLocalizedMessage());
         }
-
-        return totalPrice;
     }
 
     @Override

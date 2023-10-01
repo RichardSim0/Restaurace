@@ -15,6 +15,11 @@ public class Main {
         Waiter waiter1 = new Waiter(1, "Richard");
         Waiter waiter2 = new Waiter(2, "Daniel");
 //        1. Úloha
+//        try {
+//            orderManager.loadDataFromOrdersFile(Settings.fileNameOrders(),Settings.delimiter());
+//        } catch (RestaurantException e) {
+//            System.err.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameOrders()+" ! ---> "+e.getLocalizedMessage());
+//        }
         try {
             dishManager.loadDataFromFileDishes(Settings.fileNameDishes(),Settings.delimiter());
         } catch (RestaurantException e) {
@@ -30,7 +35,7 @@ public class Main {
         Dish rizek = new Dish("Kuřecí řízek obalovaný 150 g", BigDecimal.valueOf(6.50),15,"kureci-rizek-01",DishCategory.MAIN_COURSE);
         Dish hranolky = new Dish("Hranolky 150 g", BigDecimal.valueOf(2.70),5,"hranolky-01",DishCategory.SIDE_DISH);
         Dish pstruh = new Dish("Pstruh na víně 200 g", BigDecimal.valueOf(7.80),25,"pstruh-01",DishCategory.MAIN_COURSE);
-        Dish kofola = new Dish("Kofola 0,5 l", BigDecimal.valueOf(2.50),2,"kofola-01", DishCategory.DRINK);
+        Dish kofola = new Dish("Kofola 0,5 l", BigDecimal.valueOf(2.50),2, DishCategory.DRINK);
 
         dishRegister.add(rizek);
         dishRegister.add(hranolky);
@@ -59,7 +64,11 @@ public class Main {
             System.err.println("Chyba pri vytváraní objednávky: " + e.getLocalizedMessage());
         }
 //        4. Úloha
-        System.out.println(restaurantManager.calculateTotalPriceForTable(15));
+        try {
+            System.out.println(restaurantManager.calculateTotalPriceForTable(15));
+        } catch (RestaurantException e) {
+            System.err.println("Chyba pri kalkulácii celkovej ceny stola. " + e.getLocalizedMessage());
+        }
 //        5. Úloha
 //        ---rozpacované objednávky
         System.out.println("Aktuálne rozpracované objednávky: "+restaurantManager.pendingOrder());

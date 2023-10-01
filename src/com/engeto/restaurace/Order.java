@@ -41,40 +41,30 @@ public class Order implements Comparable<Order>{
         }
     }
 
-    public int getTable() {
-        return table;
+    public Order(int table, List<Dish> dishes, List<Waiter> waiters, LocalDateTime orderedTime,LocalDateTime fulfilmentTime, boolean isPaid, String note) {
+        this.table = table;
+        this.dishes = dishes;
+        this.waiters = waiters;
+        this.orderedTime = orderedTime;
+        this.fulfilmentTime = fulfilmentTime;
+        this.isPaid = isPaid;
+        this.note = note;
     }
 
-    public void setTable(int table) {
-        this.table = table;
+    public int getTable() {
+        return table;
     }
 
     public List<Dish> getDishes() {
         return dishes;
     }
 
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
     public List<Waiter> getWaiters() {
         return waiters;
     }
 
-    public void addWaiter(Waiter waiter) {
-        waiters.add(waiter);
-    }
-
     public LocalDateTime getOrderedTime() {
         return orderedTime;
-    }
-
-    public void setOrderedTime(LocalDateTime orderedTime) {
-        this.orderedTime = orderedTime;
     }
 
     public LocalDateTime getFulfilmentTime() {
@@ -89,16 +79,8 @@ public class Order implements Comparable<Order>{
         return isPaid;
     }
 
-    public void setPaid(boolean paid) {
-        isPaid = paid;
-    }
-
     public String getNote() {
         return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
 
     @Override

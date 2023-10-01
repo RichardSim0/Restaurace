@@ -38,7 +38,7 @@ public class DishManager {
                         dish.getTitle()+delimiter
                         +dish.getPrice()+delimiter
                         +dish.getPreparationTime()+delimiter
-                        +dish.getImage()+delimiter
+                        +dish.getImages()+delimiter
                         +dish.getCategory()
                 );
             }

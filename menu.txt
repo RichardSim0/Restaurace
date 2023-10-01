@@ -1,3 +1,12 @@
-Kuřecí řízek obalovaný 150 g	6.5	15	kureci-rizek-01	MAIN_COURSE
-Hranolky 150 g	2.7	5	hranolky-01	SIDE_DISH
-Kofola 0,5 l	2.5	2	kofola-01	DRINK
+Kuřecí řízek obalovaný 150 g	6.5	15	[[[[kureci-rizek-01]]]]	MAIN_COURSE
+Hranolky 150 g	2.7	5	[[[[hranolky-01]]]]	SIDE_DISH
+Kofola 0,5 l	2.5	2	[[[[blank]]]]	DRINK
+Kuřecí řízek obalovaný 150 g	6.5	15	[[[kureci-rizek-01]]]	MAIN_COURSE
+Hranolky 150 g	2.7	5	[[[hranolky-01]]]	SIDE_DISH
+Kofola 0,5 l	2.5	2	[[[blank]]]	DRINK
+Kuřecí řízek obalovaný 150 g	6.5	15	[[kureci-rizek-01]]	MAIN_COURSE
+Hranolky 150 g	2.7	5	[[hranolky-01]]	SIDE_DISH
+Kofola 0,5 l	2.5	2	[[blank]]	DRINK
+Kuřecí řízek obalovaný 150 g	6.5	15	[kureci-rizek-01]	MAIN_COURSE
+Hranolky 150 g	2.7	5	[hranolky-01]	SIDE_DISH
+Kofola 0,5 l	2.5	2	[blank]	DRINK

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    private List<Dish> menuList = new ArrayList<>();
+    protected static List<Dish> menuList = new ArrayList<>();
 
     public void loadDataFromFileMenu(String fileName, String delimiter) throws RestaurantException {
         String line = "";
@@ -43,7 +43,7 @@ public class Menu {
                         dish.getTitle()+delimiter
                                 +dish.getPrice()+delimiter
                                 +dish.getPreparationTime()+delimiter
-                                +dish.getImage()+delimiter
+                                +dish.getImages()+delimiter
                                 +dish.getCategory()
                 );
             }
@@ -68,13 +68,6 @@ public class Menu {
         menuList.removeAll(menuList);
     }
 
-    public Dish get(int index){
-        return menuList.get(index);
-    }
-
-    public ArrayList<Dish> getMenuList() {
-        return new ArrayList<>(menuList);
-    }
     @Override
     public String toString() {
         return "Menu{" +
