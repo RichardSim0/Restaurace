@@ -51,6 +51,14 @@ public class Order implements Comparable<Order>{
         this.note = note;
     }
 
+    public Order(int table, List<Dish> dishes, List<Waiter> waiters, LocalDateTime orderedTime, LocalDateTime fulfilmentTime) {
+        this.table = table;
+        this.dishes = dishes;
+        this.waiters = waiters;
+        this.orderedTime = orderedTime;
+        this.fulfilmentTime = fulfilmentTime;
+    }
+
     public int getTable() {
         return table;
     }

@@ -56,7 +56,7 @@ public class OrderManager {
                 String[] dishTitles = items[1].split(", ");
                 List<Dish> dishes = new ArrayList<>();
                 for (String dishTitle : dishTitles) {
-                    Dish dish = Dish.getDishByTitle(dishTitle);
+                    Dish dish = Menu.getDishByTitle(dishTitle);
                         dishes.add(dish);
                 }
 
@@ -76,12 +76,11 @@ public class OrderManager {
                 String note = items[6];
 
                 Order order = new Order(table, dishes, waiters, orderedTime,fulfilmentTime, isPaid, note);
-                order.setFulfilmentTime(fulfilmentTime);
 
                 orderList.add(order);
             }
         } catch (FileNotFoundException e) {
-            throw new RestaurantException("Súbor: " + fileName + " se nepodarilo nájsť: " + e.getLocalizedMessage());
+            throw new RestaurantException("Súbor: " + fileName + " sa nepodarilo nájsť: " + e.getLocalizedMessage());
         } catch (NumberFormatException e) {
             throw new RestaurantException("Chybný formát čísla na riadku: "+ line + e.getLocalizedMessage());
         } catch (PatternSyntaxException e) {

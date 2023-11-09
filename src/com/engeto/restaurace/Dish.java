@@ -30,15 +30,6 @@ public class Dish {
         this.category = category;
     }
 
-    public static Dish getDishByTitle(String title) {
-        for (Dish dish : Menu.menuList) {
-            if (dish.getTitle().equals(title)) {
-                return dish;
-            }
-        }
-        return null;
-    }
-
     public String getTitle() {
         return title;
     }

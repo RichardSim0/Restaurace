@@ -15,11 +15,6 @@ public class Main {
         Waiter waiter1 = new Waiter(1, "Richard");
         Waiter waiter2 = new Waiter(2, "Daniel");
 //        1. Úloha
-//        try {
-//            orderManager.loadDataFromOrdersFile(Settings.fileNameOrders(),Settings.delimiter());
-//        } catch (RestaurantException e) {
-//            System.err.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameOrders()+" ! ---> "+e.getLocalizedMessage());
-//        }
         try {
             dishManager.loadDataFromFileDishes(Settings.fileNameDishes(),Settings.delimiter());
         } catch (RestaurantException e) {
@@ -29,6 +24,16 @@ public class Main {
             menu.loadDataFromFileMenu(Settings.fileNameMenu(),Settings.delimiter());
         } catch (RestaurantException e) {
             System.err.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameMenu()+" ! ---> "+e.getLocalizedMessage());
+        }
+        try {
+            orderManager.loadDataFromOrdersFile(Settings.fileNameOrders(),Settings.delimiter());
+        } catch (RestaurantException e) {
+            System.err.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameOrders()+" ! ---> "+e.getLocalizedMessage());
+        }
+        try {
+            restaurantManager.loadOrdersFromFile(Settings.fileNameOrdersForTable());
+        } catch (RestaurantException e) {
+            System.err.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameOrdersForTable()+" ! ---> "+e.getLocalizedMessage());
         }
 //        2. Úloha
 //        ---jedlá

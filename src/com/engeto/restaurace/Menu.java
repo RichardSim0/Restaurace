@@ -52,6 +52,15 @@ public class Menu {
         }
     }
 
+    public static Dish getDishByTitle(String title) {
+        for (Dish dish : menuList) {
+            if (dish.getTitle().equals(title)) {
+                return dish;
+            }
+        }
+        return null;
+    }
+
     public boolean isDishOnMenu(Dish dish) {
         return menuList.contains(dish);
     }

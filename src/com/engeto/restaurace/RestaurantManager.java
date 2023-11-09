@@ -1,16 +1,19 @@
 package com.engeto.restaurace;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.List;
+import java.util.regex.PatternSyntaxException;
 import java.util.stream.Collectors;
+import java.util.Scanner;
 
 public class RestaurantManager {
     OrderManager orderManager = new OrderManager();
@@ -155,6 +158,94 @@ public class RestaurantManager {
             throw new RestaurantException("Chyba pri zápise do súboru: " + fileName + "! " + e.getLocalizedMessage());
         }
     }
+    public void loadOrdersFromFile(String fileName) throws RestaurantException {
+        String line = "";
+        String[] parts;
+        List<Order> orders = new ArrayList<>();
+        int tableNumber = -1;
+
+        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(fileName)))) {
+
+            String header1 = scanner.nextLine();
+
+            if (header1.startsWith("** Objednávky pro stůl č. ")) {
+                parts = header1.split("\\s+");
+                if (parts.length >= 6) {
+                    tableNumber = Integer.parseInt(parts[5]);
+                }
+            }
+
+            scanner.nextLine();
+
+            while (scanner.hasNextLine()) {
+                line = scanner.nextLine();
+
+                if (line.equals("******")) {
+                    break;
+                }
+
+               parts = line.split("\\t");
+                if (parts.length != 3) {
+                    System.err.println("Chybný formát riadku: " + line);
+                    continue;
+                }
+
+                String dishInfo = parts[0].trim();
+                String timeInfo = parts[1].trim();
+                String waiterInfo = parts[2].trim();
+
+                String[] dishTitles = dishInfo.split(", ");
+                List<Dish> dishes = new ArrayList<>();
+                for (String dishTitle : dishTitles) {
+                    Dish dish = Menu.getDishByTitle(dishTitle);
+                    dishes.add(dish);
+                }
+
+                String[] timeParts = timeInfo.split("-");
+                if (timeParts.length != 2) {
+                    System.err.println("Chybný formát času: " + timeInfo);
+                    continue;
+                }
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                LocalDateTime orderedTime = LocalTime.parse(timeParts[0].trim(), formatter).atDate(LocalDate.now());
+                LocalDateTime fulfillmentTime = LocalTime.parse(timeParts[1].trim(), formatter).atDate(LocalDate.now());
+
+                List<Waiter> waiters = Arrays.stream(waiterInfo.split(","))
+                        .map(waiterId -> {
+                            try {
+                                String[] idParts = waiterId.trim().split("číšník č\\.\\s*");
+                                if (idParts.length == 2) {
+                                    int numericId = Integer.parseInt(idParts[1]);
+                                    return Waiter.getWaiterById(numericId);
+                                } else {
+                                    System.err.println("Chybný formát číšníka: " + waiterId);
+                                    return null;
+                                }
+                            } catch (NumberFormatException e) {
+                                System.err.println("Chyba při parsování čísla na začátku řádku: " + waiterId);
+                                return null;
+                            }
+                        })
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toList());
+
+                Order order = new Order(tableNumber, dishes, waiters, orderedTime, fulfillmentTime);
+                orders.add(order);
+            }
+        } catch (IOException e) {
+            throw new RestaurantException("Chyba pri čítaní zo súboru: " + fileName + "! " + e.getLocalizedMessage());
+        } catch (DateTimeParseException e){
+            throw new RestaurantException("Chybný formát času v súbore: "+ fileName + " na riadku: " + line +" ! "+ e.getLocalizedMessage());
+        } catch (PatternSyntaxException e){
+            throw new RestaurantException("Chyba pri čítaní súboru: "+ fileName +" na riadku: " + line + " ! "+ e.getLocalizedMessage());
+        } catch (NumberFormatException e) {
+            throw new RestaurantException("Chybný formát čísla na riadku: " + line + e.getLocalizedMessage());
+        } catch (NoSuchElementException e){
+            throw new RestaurantException("Nebol nájdený riadok v súbore: "+fileName+"! "+e.getLocalizedMessage());
+        }
+    }
+
+
     public BigDecimal calculateTotalPriceForTable(int tableNumber) throws RestaurantException {
         try {
             BigDecimal totalPrice = BigDecimal.ZERO;
