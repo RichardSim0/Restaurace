@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Discord: Richard Š. ...pern11cek
+ */
 public class Main {
     public static void main(String[] args) {
         DishManager dishManager = new DishManager();
