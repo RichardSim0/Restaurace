@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class DishManager {
-    DishRegister dishRegister = new DishRegister();
+    private List<Dish> dishRegister = new ArrayList<>();
     public void loadDataFromFileDishes(String fileName, String delimiter) throws RestaurantException {
         String line = "";
         String[] items = new String[0];
@@ -13,13 +13,14 @@ public class DishManager {
             while (scanner.hasNextLine()){
                 line = scanner.nextLine();
                 items = line.split(delimiter);
-                String title = items[0];
-                BigDecimal price = new BigDecimal(items[1]);
-                int preparationTime = Integer.parseInt(items[2]);
-                String image = items[3];
-                DishCategory category = DishCategory.valueOf(items[4]);
-                Dish newDish = new Dish(title, price, preparationTime, image, category);
-                dishRegister.add(newDish);
+                        int dishId = Integer.parseInt(items[0]);
+                        String dishTitle = items[1];
+                        BigDecimal dishPrice = new BigDecimal(items[2]);
+                        int dishPreparationTime = Integer.parseInt(items[3]);
+                        String dishImage = items[4];
+                        DishCategory dishCategory = DishCategory.valueOf(items[5]);
+                        Dish newDish = new Dish(dishId, dishTitle, dishPrice, dishPreparationTime, dishImage, dishCategory);
+                        dishRegister.add(newDish);
             }
         } catch (FileNotFoundException e) {
             throw new RestaurantException("Súbor: "+fileName+" sa nenašiel! "+e.getLocalizedMessage());
@@ -35,7 +36,8 @@ public class DishManager {
         try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(fileName)))) {
             for (Dish dish : dishRegister){
                 writer.println(
-                        dish.getTitle()+delimiter
+                        dish.getId()+delimiter
+                        +dish.getTitle()+delimiter
                         +dish.getPrice()+delimiter
                         +dish.getPreparationTime()+delimiter
                         +dish.getImages()+delimiter
@@ -46,8 +48,18 @@ public class DishManager {
             throw new RestaurantException("Chyba pri zápise do súboru: "+fileName+"! "+e.getLocalizedMessage());
         }
     }
-    public DishRegister getDishRegister() {
-        return dishRegister;
+    public void add(Dish newDish){
+        dishRegister.add(newDish);
+    }
+    public void remove(int index){
+        dishRegister.remove(index);
+    }
+
+    public void removeAll(){
+        dishRegister.removeAll(dishRegister);
+    }
+    public List<Dish> getDishRegister() {
+        return new ArrayList<>(dishRegister);
     }
 
 }

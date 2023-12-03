@@ -1,4 +1,8 @@
-Kuřecí řízek obalovaný 150 g	6.5	15	[kureci-rizek-01]	MAIN_COURSE
-Hranolky 150 g	2.7	5	[hranolky-01]	SIDE_DISH
-Pstruh na víně 200 g	7.8	25	[pstruh-01]	MAIN_COURSE
-Kofola 0,5 l	2.5	2	[blank]	DRINK
+1000	Kuřecí řízek obalovaný 150 g	6.5	15	[[kureci-rizek-01]]	MAIN_COURSE
+1001	Hranolky 150 g	2.7	5	[[hranolky-01]]	SIDE_DISH
+1002	Pstruh na víně 200 g	7.8	25	[[pstruh-01]]	MAIN_COURSE
+1003	Kofola 0,5 l	2.5	2	[[blank]]	DRINK
+1000	Kuřecí řízek obalovaný 150 g	6.5	15	[kureci-rizek-01]	MAIN_COURSE
+1001	Hranolky 150 g	2.7	5	[hranolky-01]	SIDE_DISH
+1002	Pstruh na víně 200 g	7.8	25	[pstruh-01]	MAIN_COURSE
+1003	Kofola 0,5 l	2.5	2	[blank]	DRINK

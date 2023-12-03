@@ -17,13 +17,14 @@ public class Menu {
             while (scanner.hasNextLine()){
                 line = scanner.nextLine();
                 items = line.split(delimiter);
-                String title = items[0];
-                BigDecimal price = new BigDecimal(items[1]);
-                int preparationTime = Integer.parseInt(items[2]);
-                String image = items[3];
-                DishCategory category = DishCategory.valueOf(items[4]);
-                Dish newDish = new Dish(title, price, preparationTime, image, category);
-                menuList.add(newDish);
+                int iD = Integer.parseInt(items[0]);
+                for (Dish dish : menuList) {
+                    if (dish.getId() == iD) {
+                        dish.assignValues(items[1], new BigDecimal(items[2]), Integer.parseInt(items[3]), items[4], DishCategory.valueOf(items[5]));
+                    }else {
+                        throw new RestaurantException("Jedlo s ID " + iD + " nebolo nájdené!");
+                    }
+                }
             }
         } catch (FileNotFoundException e) {
             throw new RestaurantException("Súbor: "+fileName+" sa nenašiel! "+e.getLocalizedMessage());
@@ -40,7 +41,8 @@ public class Menu {
         try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(fileName)))) {
             for (Dish dish : menuList){
                 writer.println(
-                        dish.getTitle()+delimiter
+                        dish.getId()+delimiter
+                                +dish.getTitle()+delimiter
                                 +dish.getPrice()+delimiter
                                 +dish.getPreparationTime()+delimiter
                                 +dish.getImages()+delimiter

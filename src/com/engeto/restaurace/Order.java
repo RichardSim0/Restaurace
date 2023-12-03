@@ -21,11 +21,11 @@ public class Order implements Comparable<Order>{
         this.dishes = new ArrayList<>(dishes);
         this.waiters = waiters;
         this.orderedTime = orderedTime;
-            int preparationTime = 0;
-            for (Dish dish : dishes) {
-                preparationTime = dish.getPreparationTime();
-            }
-            this.fulfilmentTime = orderedTime.plusMinutes(preparationTime);
+        if (isPaid){
+            this.fulfilmentTime = LocalDateTime.now();
+        }else {
+            this.fulfilmentTime = null;
+        }
         this.isPaid = isPaid;
         this.note = note;
 

@@ -10,7 +10,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         DishManager dishManager = new DishManager();
-        DishRegister dishRegister = dishManager.getDishRegister();
         Menu menu = new Menu();
         RestaurantManager restaurantManager = new RestaurantManager();
         OrderManager orderManager = restaurantManager.getOrderManager();
@@ -45,10 +44,10 @@ public class Main {
         Dish pstruh = new Dish("Pstruh na víně 200 g", BigDecimal.valueOf(7.80),25,"pstruh-01",DishCategory.MAIN_COURSE);
         Dish kofola = new Dish("Kofola 0,5 l", BigDecimal.valueOf(2.50),2, DishCategory.DRINK);
 
-        dishRegister.add(rizek);
-        dishRegister.add(hranolky);
-        dishRegister.add(pstruh);
-        dishRegister.add(kofola);
+        dishManager.add(rizek);
+        dishManager.add(hranolky);
+        dishManager.add(pstruh);
+        dishManager.add(kofola);
 //        ---zaradenie do menu
         menu.add(rizek);
         menu.add(hranolky);

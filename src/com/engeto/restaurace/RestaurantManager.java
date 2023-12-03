@@ -25,7 +25,7 @@ public class RestaurantManager {
     public long pendingOrder() {
         List<Order> pendingOrdersList = new ArrayList<>();
         for (Order order : orderManager.getOrderList()) {
-            if (order.getFulfilmentTime().isAfter(LocalDateTime.now())) {
+            if (!order.isPaid()) {
                 pendingOrdersList.add(order);
             }
         }
@@ -65,7 +65,7 @@ public class RestaurantManager {
         BigDecimal totalOrderedTimeInMinutes = BigDecimal.ZERO;
         for (Order order : orderManager.getOrderList()) {
             LocalDateTime orderedTime = order.getOrderedTime();
-            if (orderedTime.isAfter(startTime) && orderedTime.isBefore(endTime)) {
+            if (orderedTime.isAfter(startTime) && orderedTime.isBefore(endTime) && order.isPaid()) {
                 long minutes = orderedTime.until(order.getFulfilmentTime(), ChronoUnit.MINUTES);
                 totalOrderedTimeInMinutes = totalOrderedTimeInMinutes.add(BigDecimal.valueOf(minutes));
                 count++;

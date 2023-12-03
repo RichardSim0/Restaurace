@@ -48,7 +48,7 @@ public class OrderManager {
                 line = scanner.nextLine();
                 items = line.split(delimiter);
                 if (items.length != 7) {
-                    throw new RestaurantException("Chybný formát v souboru na riadku: " + line);
+                    throw new RestaurantException("Chybný formát v súbore na riadku: " + line);
                 }
 
                 int table = Integer.parseInt(items[0]);
@@ -71,7 +71,13 @@ public class OrderManager {
                 }
 
                 LocalDateTime orderedTime = LocalDateTime.parse(items[3]);
-                LocalDateTime fulfilmentTime = LocalDateTime.parse(items[4]);
+                LocalDateTime fulfilmentTime = null;
+                if (!items[4].equals("null")) {
+                    fulfilmentTime = LocalDateTime.parse(items[4]);
+                }
+                if (fulfilmentTime == null) {
+                    continue;
+                }
                 boolean isPaid = Boolean.parseBoolean(items[5]);
                 String note = items[6];
 
@@ -86,7 +92,7 @@ public class OrderManager {
         } catch (PatternSyntaxException e) {
             throw new RestaurantException("Chyba pri čítaní súboru: "+ fileName +" na riadku: " + line + " ! "+ e.getLocalizedMessage());
         } catch (DateTimeParseException e) {
-            throw new RestaurantException("Chybný formát času v súbore: "+ fileName + "na riadku: " + line +" ! "+ e.getLocalizedMessage());
+            throw new RestaurantException("Chybný formát času v súbore: \""+ fileName + "\" na riadku: \n" + line +" ! "+ e.getLocalizedMessage());
         }
     }
     public void add(Order newOrder){
