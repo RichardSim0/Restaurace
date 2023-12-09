@@ -23,13 +23,13 @@ public class DishManager {
                         dishRegister.add(newDish);
             }
         } catch (FileNotFoundException e) {
-            throw new RestaurantException("Súbor: "+fileName+" sa nenašiel! "+e.getLocalizedMessage());
+            System.err.println("Súbor: "+fileName+" sa nenašiel! "+e.getLocalizedMessage());
         } catch (NumberFormatException e) {
-            throw new RestaurantException("Chybné číslo na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
+            System.err.println("Chybné číslo na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
         } catch (IllegalArgumentException e) {
-            throw new RestaurantException("Chybne zadaná kategória jedla: \""+items[4]+"\" na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
+            System.err.println("Chybne zadaná kategória jedla: \""+items[4]+"\" na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
         } catch (ArrayIndexOutOfBoundsException e){
-            throw new RestaurantException("Súbor: "+fileName+" je prázdny! "+e.getLocalizedMessage());
+            System.err.println("Súbor: "+fileName+" je prázdny! "+e.getLocalizedMessage());
         }
     }
     public void saveDataToFileDishes(String fileName, String delimiter) throws RestaurantException {
@@ -45,7 +45,7 @@ public class DishManager {
                 );
             }
         } catch (IOException e) {
-            throw new RestaurantException("Chyba pri zápise do súboru: "+fileName+"! "+e.getLocalizedMessage());
+            System.err.println("Chyba pri zápise do súboru: "+fileName+"! "+e.getLocalizedMessage());
         }
     }
     public void add(Dish newDish){
@@ -56,10 +56,16 @@ public class DishManager {
     }
 
     public void removeAll(){
-        dishRegister.removeAll(dishRegister);
+        dishRegister.removeAll(new ArrayList<>(dishRegister));
     }
     public List<Dish> getDishRegister() {
         return new ArrayList<>(dishRegister);
     }
 
+    @Override
+    public String toString() {
+        return "DishManager{" +
+                "dishRegister=" + dishRegister +
+                '}';
+    }
 }

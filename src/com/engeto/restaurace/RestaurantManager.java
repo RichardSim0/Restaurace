@@ -40,13 +40,21 @@ public class RestaurantManager {
         orderManager.getOrderList().sort(new OrderWaiterComparator());
     }
 
-    public Map<Integer, BigDecimal> calculateTotalPricePerWaiter() {
+    public Map<String, BigDecimal> calculateTotalPricePerWaiter() {
         return orderManager.getOrderList().stream()
-                .flatMap(order -> order.getWaiters().stream().map(waiter -> new AbstractMap.SimpleEntry<>(waiter.getId(), order.getDishes())))
-                .collect(Collectors.toMap(
+                .flatMap(order -> order.getWaiters().stream()
+                        .map(waiter -> waiter.getName() + " " + waiter.getId())
+                        .map(waiterKey -> new AbstractMap.SimpleEntry<>(waiterKey, order.getDishes())))
+                .collect(Collectors.groupingBy(
                         Map.Entry::getKey,
-                        entry -> entry.getValue().stream().map(Dish::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add),
-                        BigDecimal::add
+                        Collectors.mapping(
+                                entry -> entry.getValue().stream()
+                                        .map(Dish::getPrice)
+                                        .filter(Objects::nonNull)
+                                        .filter(price -> price.compareTo(BigDecimal.ZERO) >= 0)
+                                        .reduce(BigDecimal.ZERO, BigDecimal::add),
+                                Collectors.reducing(BigDecimal.ZERO, BigDecimal::add)
+                        )
                 ));
     }
 
@@ -89,7 +97,6 @@ public class RestaurantManager {
 
     public void exportOrdersForTableToFile(int tableNumber, String fileName) throws RestaurantException {
         List<Order> ordersForTable = new ArrayList<>();
-
         for (Order order : orderManager.getOrderList()) {
             if (order.getTable() == tableNumber) {
                 ordersForTable.add(order);
@@ -145,13 +152,12 @@ public class RestaurantManager {
 
             writer.println("******");
         } catch (IOException e) {
-            throw new RestaurantException("Chyba pri zápise do súboru: " + fileName + "! " + e.getLocalizedMessage());
+            System.err.println("Chyba pri zápise do súboru: " + fileName + "! " + e.getLocalizedMessage());
         }
     }
     public void loadOrdersFromFile(String fileName) throws RestaurantException {
         String line = "";
         String[] parts;
-        List<Order> orders = new ArrayList<>();
         int tableNumber = -1;
 
         try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(fileName)))) {
@@ -167,6 +173,7 @@ public class RestaurantManager {
 
             scanner.nextLine();
 
+            List<Order> orders = new ArrayList<>();
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
 
@@ -223,15 +230,15 @@ public class RestaurantManager {
                 orders.add(order);
             }
         } catch (IOException e) {
-            throw new RestaurantException("Chyba pri čítaní zo súboru: " + fileName + "! " + e.getLocalizedMessage());
-        } catch (DateTimeParseException e){
-            throw new RestaurantException("Chybný formát času v súbore: "+ fileName + " na riadku: " + line +" ! "+ e.getLocalizedMessage());
-        } catch (PatternSyntaxException e){
-            throw new RestaurantException("Chyba pri čítaní súboru: "+ fileName +" na riadku: " + line + " ! "+ e.getLocalizedMessage());
+            System.err.println("Súbor: " + fileName + " sa nenašiel! " + e.getLocalizedMessage());
+        } catch (DateTimeParseException e) {
+            System.err.println("Chybný formát času v súbore: " + fileName + " na riadku: " + line + " ! " + e.getLocalizedMessage());
+        } catch (PatternSyntaxException e) {
+            System.err.println("Chyba pri čítaní súboru: " + fileName + " na riadku: " + line + " ! " + e.getLocalizedMessage());
         } catch (NumberFormatException e) {
-            throw new RestaurantException("Chybný formát čísla na riadku: " + line + e.getLocalizedMessage());
-        } catch (NoSuchElementException e){
-            throw new RestaurantException("Nebol nájdený riadok v súbore: "+fileName+"! "+e.getLocalizedMessage());
+            System.err.println("Chybný formát čísla na riadku: " + line + e.getLocalizedMessage());
+        } catch (NoSuchElementException e) {
+            System.err.println("Nebol nájdený riadok v súbore: " + fileName + "! " + e.getLocalizedMessage());
         }
     }
 

@@ -18,6 +18,10 @@ public class Waiter {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public static Waiter getWaiterById(int id) {
         for (Waiter waiter : waiters) {
             if (waiter.getId() == id) {

@@ -40,7 +40,6 @@ public class Dish {
         this.title = title;
         this.price = price;
         this.preparationTime = preparationTime;
-//        this.images = images;
         this.images = new ArrayList<>();
         if (image != null && !image.isEmpty()) {
             this.images.add(image);

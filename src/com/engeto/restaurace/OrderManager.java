@@ -37,7 +37,7 @@ public class OrderManager {
                 );
             }
         } catch (IOException e) {
-            throw new RestaurantException("Chyba pri zápise do súboru: " + fileName + " ! " + e.getLocalizedMessage());
+            System.err.println("Chyba pri zápise do súboru: " + fileName + " ! " + e.getLocalizedMessage());
         }
     }
     public void loadDataFromOrdersFile(String fileName, String delimiter) throws RestaurantException {
@@ -48,7 +48,7 @@ public class OrderManager {
                 line = scanner.nextLine();
                 items = line.split(delimiter);
                 if (items.length != 7) {
-                    throw new RestaurantException("Chybný formát v súbore na riadku: " + line);
+                    System.err.println("Chybný formát v súbore na riadku: " + line);
                 }
 
                 int table = Integer.parseInt(items[0]);
@@ -86,13 +86,13 @@ public class OrderManager {
                 orderList.add(order);
             }
         } catch (FileNotFoundException e) {
-            throw new RestaurantException("Súbor: " + fileName + " sa nepodarilo nájsť: " + e.getLocalizedMessage());
+            System.err.println("Súbor: " + fileName + " sa nenašiel! " + e.getLocalizedMessage());
         } catch (NumberFormatException e) {
-            throw new RestaurantException("Chybný formát čísla na riadku: "+ line + e.getLocalizedMessage());
+            System.err.println("Chybný formát čísla na riadku: "+ line + e.getLocalizedMessage());
         } catch (PatternSyntaxException e) {
-            throw new RestaurantException("Chyba pri čítaní súboru: "+ fileName +" na riadku: " + line + " ! "+ e.getLocalizedMessage());
+            System.err.println("Chyba pri čítaní súboru: "+ fileName +" na riadku: " + line + " ! "+ e.getLocalizedMessage());
         } catch (DateTimeParseException e) {
-            throw new RestaurantException("Chybný formát času v súbore: \""+ fileName + "\" na riadku: \n" + line +" ! "+ e.getLocalizedMessage());
+            System.err.println("Chybný formát času v súbore: \""+ fileName + "\" na riadku: \n" + line +" ! "+ e.getLocalizedMessage());
         }
     }
     public void add(Order newOrder){

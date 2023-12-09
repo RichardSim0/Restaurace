@@ -22,18 +22,18 @@ public class Menu {
                     if (dish.getId() == iD) {
                         dish.assignValues(items[1], new BigDecimal(items[2]), Integer.parseInt(items[3]), items[4], DishCategory.valueOf(items[5]));
                     }else {
-                        throw new RestaurantException("Jedlo s ID " + iD + " nebolo nájdené!");
+                        System.err.println("Jedlo s ID " + iD + " nebolo nájdené!");
                     }
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new RestaurantException("Súbor: "+fileName+" sa nenašiel! "+e.getLocalizedMessage());
+            System.err.println("Súbor: "+fileName+" sa nenašiel! "+e.getLocalizedMessage());
         } catch (NumberFormatException e) {
-            throw new RestaurantException("Chybné číslo na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
+            System.err.println("Chybné číslo na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
         } catch (IllegalArgumentException e) {
-            throw new RestaurantException("Chybne zadaná kategória jedla: \""+items[4]+"\" na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
+            System.err.println("Chybne zadaná kategória jedla: \""+items[4]+"\" na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
         } catch (ArrayIndexOutOfBoundsException e){
-            throw new RestaurantException("Súbor: "+fileName+" je prázdny! "+e.getLocalizedMessage());
+            System.err.println("Súbor: "+fileName+" je prázdny! "+e.getLocalizedMessage());
         }
     }
 
@@ -50,7 +50,7 @@ public class Menu {
                 );
             }
         } catch (IOException e) {
-            throw new RestaurantException("Chyba pri zápise do súboru: "+fileName+"! "+e.getLocalizedMessage());
+            System.err.println("Chyba pri zápise do súboru: "+fileName+"! "+e.getLocalizedMessage());
         }
     }
 
