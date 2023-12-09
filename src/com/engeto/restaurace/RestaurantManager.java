@@ -41,23 +41,13 @@ public class RestaurantManager {
     }
 
     public Map<Integer, BigDecimal> calculateTotalPricePerWaiter() {
-        Map<Integer, BigDecimal> totalPricePerWaiter = new HashMap<>();
-        for (Order order : orderManager.getOrderList()) {
-            List<Waiter> waiters = order.getWaiters();
-            List<Dish> dishes = order.getDishes();
-
-            for (Waiter waiter : waiters) {
-                int waiterId = waiter.getId();
-
-                for (Dish dish : dishes) {
-                    BigDecimal dishPrice = dish.getPrice();
-                    BigDecimal totalPrice = totalPricePerWaiter.getOrDefault(waiterId, BigDecimal.ZERO);
-                    totalPrice = totalPrice.add(dishPrice);
-                    totalPricePerWaiter.put(waiterId, totalPrice);
-                }
-            }
-        }
-        return totalPricePerWaiter;
+        return orderManager.getOrderList().stream()
+                .flatMap(order -> order.getWaiters().stream().map(waiter -> new AbstractMap.SimpleEntry<>(waiter.getId(), order.getDishes())))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> entry.getValue().stream().map(Dish::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add),
+                        BigDecimal::add
+                ));
     }
 
     public long calculateAverageOrderedTime(LocalDateTime startTime, LocalDateTime endTime) {

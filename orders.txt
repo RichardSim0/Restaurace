@@ -1,2 +1,2 @@
-15	Kuřecí řízek obalovaný 150 g, Kuřecí řízek obalovaný 150 g, Hranolky 150 g, Hranolky 150 g, Kofola 0,5 l, Kofola 0,5 l	1	2023-12-02T18:54:07.279621600	null	false	Zákazníkom sa páči výzdoba reštaurácie.	
-2	Hranolky 150 g, Kofola 0,5 l, Kuřecí řízek obalovaný 150 g	1, 2	2023-12-02T18:54:07.279621600	null	false	null	
+15	Kuřecí řízek obalovaný 150 g, Kuřecí řízek obalovaný 150 g, Hranolky 150 g, Hranolky 150 g, Kofola 0,5 l, Kofola 0,5 l	1	2023-12-09T17:22:55.317278300	2023-12-09T17:22:55.317278300	true	Zákazníkom sa páči výzdoba reštaurácie.	
+2	Hranolky 150 g, Kofola 0,5 l, Kuřecí řízek obalovaný 150 g	1, 2	2023-12-09T17:22:55.317278300	null	false	null	
