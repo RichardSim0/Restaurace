@@ -9,11 +9,15 @@ public class DishManager {
     public void loadDataFromFileDishes(String fileName, String delimiter) throws RestaurantException {
         String line = "";
         String[] items = new String[0];
+        int maxId = 0;
         try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(fileName)))) {
             while (scanner.hasNextLine()){
                 line = scanner.nextLine();
                 items = line.split(delimiter);
                         int dishId = Integer.parseInt(items[0]);
+                        if (dishId > maxId) {
+                            maxId = dishId;
+                        }
                         String dishTitle = items[1];
                         BigDecimal dishPrice = new BigDecimal(items[2]);
                         int dishPreparationTime = Integer.parseInt(items[3]);
@@ -22,6 +26,7 @@ public class DishManager {
                         Dish newDish = new Dish(dishId, dishTitle, dishPrice, dishPreparationTime, dishImage, dishCategory);
                         dishRegister.add(newDish);
             }
+            Dish.setNextId(maxId + 1);
         } catch (FileNotFoundException e) {
             System.err.println("Súbor: "+fileName+" sa nenašiel! "+e.getLocalizedMessage());
         } catch (NumberFormatException e) {

@@ -58,6 +58,10 @@ public class Dish {
         this.category = category;
     }
 
+    public static void setNextId(int nextId) {
+        Dish.nextId = nextId;
+    }
+
     public int getId() {
         return id;
     }
