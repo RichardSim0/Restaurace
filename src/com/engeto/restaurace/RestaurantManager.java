@@ -152,7 +152,7 @@ public class RestaurantManager {
 
             writer.println("******");
         } catch (IOException e) {
-            System.err.println("Chyba pri zápise do súboru: " + fileName + "! " + e.getLocalizedMessage());
+            throw new RestaurantException("Chyba pri zápise do súboru: " + fileName + "! " + e.getLocalizedMessage());
         }
     }
     public void loadOrdersFromFile(String fileName) throws RestaurantException {
@@ -230,15 +230,15 @@ public class RestaurantManager {
                 orders.add(order);
             }
         } catch (IOException e) {
-            System.err.println("Súbor: " + fileName + " sa nenašiel! " + e.getLocalizedMessage());
+            throw new RestaurantException("Súbor: " + fileName + " sa nenašiel! " + e.getLocalizedMessage());
         } catch (DateTimeParseException e) {
-            System.err.println("Chybný formát času v súbore: " + fileName + " na riadku: " + line + " ! " + e.getLocalizedMessage());
+            throw new RestaurantException("Chybný formát času v súbore: " + fileName + " na riadku: " + line + " ! " + e.getLocalizedMessage());
         } catch (PatternSyntaxException e) {
-            System.err.println("Chyba pri čítaní súboru: " + fileName + " na riadku: " + line + " ! " + e.getLocalizedMessage());
+            throw new RestaurantException("Chyba pri čítaní súboru: " + fileName + " na riadku: " + line + " ! " + e.getLocalizedMessage());
         } catch (NumberFormatException e) {
-            System.err.println("Chybný formát čísla na riadku: " + line + e.getLocalizedMessage());
+            throw new RestaurantException("Chybný formát čísla na riadku: " + line + e.getLocalizedMessage());
         } catch (NoSuchElementException e) {
-            System.err.println("Nebol nájdený riadok v súbore: " + fileName + "! " + e.getLocalizedMessage());
+            throw new RestaurantException("Nebol nájdený riadok v súbore: " + fileName + "! " + e.getLocalizedMessage());
         }
     }
 

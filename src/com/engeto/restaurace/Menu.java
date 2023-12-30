@@ -27,13 +27,13 @@ public class Menu {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.err.println("Súbor: "+fileName+" sa nenašiel! "+e.getLocalizedMessage());
+            throw new RestaurantException("Súbor: "+fileName+" sa nenašiel! "+e.getLocalizedMessage());
         } catch (NumberFormatException e) {
-            System.err.println("Chybné číslo na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
+            throw new RestaurantException("Chybné číslo na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
         } catch (IllegalArgumentException e) {
-            System.err.println("Chybne zadaná kategória jedla: \""+items[4]+"\" na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
+            throw new RestaurantException("Chybne zadaná kategória jedla: \""+items[4]+"\" na riadku:\n"+line+" !!! "+e.getLocalizedMessage());
         } catch (ArrayIndexOutOfBoundsException e){
-            System.err.println("Súbor: "+fileName+" je prázdny! "+e.getLocalizedMessage());
+            throw new RestaurantException("Súbor: "+fileName+" je prázdny! "+e.getLocalizedMessage());
         }
     }
 
@@ -50,7 +50,7 @@ public class Menu {
                 );
             }
         } catch (IOException e) {
-            System.err.println("Chyba pri zápise do súboru: "+fileName+"! "+e.getLocalizedMessage());
+            throw new RestaurantException("Chyba pri zápise do súboru: "+fileName+"! "+e.getLocalizedMessage());
         }
     }
 

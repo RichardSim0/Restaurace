@@ -20,22 +20,22 @@ public class Main {
         try {
             dishManager.loadDataFromFileDishes(Settings.fileNameDishes(),Settings.delimiter());
         } catch (RestaurantException e) {
-            System.err.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameDishes()+" ! ---> "+e.getLocalizedMessage());
+            System.out.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameDishes()+" ! ---> "+e.getLocalizedMessage());
         }
         try {
             menu.loadDataFromFileMenu(Settings.fileNameMenu(),Settings.delimiter());
         } catch (RestaurantException e) {
-            System.err.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameMenu()+" ! ---> "+e.getLocalizedMessage());
+            System.out.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameMenu()+" ! ---> "+e.getLocalizedMessage());
         }
         try {
             orderManager.loadDataFromOrdersFile(Settings.fileNameOrders(),Settings.delimiter());
         } catch (RestaurantException e) {
-            System.err.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameOrders()+" ! ---> "+e.getLocalizedMessage());
+            System.out.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameOrders()+" ! ---> "+e.getLocalizedMessage());
         }
         try {
             restaurantManager.loadOrdersFromFile(Settings.fileNameOrdersForTable());
         } catch (RestaurantException e) {
-            System.err.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameOrdersForTable()+" ! ---> "+e.getLocalizedMessage());
+            System.out.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameOrdersForTable()+" ! ---> "+e.getLocalizedMessage());
         }
 //        2. Úloha
 //        ---jedlá
@@ -56,25 +56,25 @@ public class Main {
         try {
             orderManager.add(new Order(15,menu,List.of(rizek,rizek,hranolky,hranolky,kofola,kofola), List.of(waiter1),LocalDateTime.now(), false, "Zákazníkom sa páči výzdoba reštaurácie."));
         } catch (RestaurantException e) {
-            System.err.println("Chyba pri vytváraní objednávky: " + e.getLocalizedMessage());
+            System.out.println("Chyba pri vytváraní objednávky: " + e.getLocalizedMessage());
         }
 //        ---objednávka na stôl č.2
         try {
             orderManager.add(new Order(2,menu,List.of(hranolky,kofola,rizek), List.of(waiter1,waiter2), LocalDateTime.now(),false, null));
         } catch (RestaurantException e) {
-            System.err.println("Chyba pri vytváraní objednávky: " + e.getLocalizedMessage());
+            System.out.println("Chyba pri vytváraní objednávky: " + e.getLocalizedMessage());
         }
 //        3. Úloha
         try {
             orderManager.add(new Order(1,menu,List.of(rizek,rizek,hranolky,hranolky,kofola,kofola,pstruh), List.of(waiter2), LocalDateTime.now(), false, null));
         } catch (RestaurantException e) {
-            System.err.println("Chyba pri vytváraní objednávky: " + e.getLocalizedMessage());
+            System.out.println("Chyba pri vytváraní objednávky: " + e.getLocalizedMessage());
         }
 //        4. Úloha
         try {
             System.out.println(restaurantManager.calculateTotalPriceForTable(15));
         } catch (RestaurantException e) {
-            System.err.println("Chyba pri kalkulácii celkovej ceny stola. " + e.getLocalizedMessage());
+            System.out.println("Chyba pri kalkulácii celkovej ceny stola. " + e.getLocalizedMessage());
         }
 //        5. Úloha
 //        ---rozpacované objednávky
@@ -95,23 +95,23 @@ public class Main {
         try {
             restaurantManager.exportOrdersForTableToFile(15,Settings.fileNameOrdersForTable());
         } catch (RestaurantException e) {
-            System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameOrdersForTable() + " !!! \n "+ e.getLocalizedMessage());
+            System.out.println("Chyba pri zápise do súboru: " + Settings.fileNameOrdersForTable() + " !!! \n "+ e.getLocalizedMessage());
         }
 //        6. Úloha
         try {
             dishManager.saveDataToFileDishes(Settings.fileNameDishes(),Settings.delimiter());
         } catch (RestaurantException e) {
-            System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameDishes() + " !!! \n " + e.getLocalizedMessage());
+            System.out.println("Chyba pri zápise do súboru: " + Settings.fileNameDishes() + " !!! \n " + e.getLocalizedMessage());
         }
         try {
             menu.saveDataToFileMenu(Settings.fileNameMenu(),Settings.delimiter());
         } catch (RestaurantException e) {
-            System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameMenu() + " !!! \n " + e.getLocalizedMessage());
+            System.out.println("Chyba pri zápise do súboru: " + Settings.fileNameMenu() + " !!! \n " + e.getLocalizedMessage());
         }
         try {
             orderManager.saveDataToOrdersFile(Settings.fileNameOrders(),Settings.delimiter());
         } catch (RestaurantException e) {
-            System.err.println("Chyba pri zápise do súboru: " + Settings.fileNameOrders() + " !!! \n " + e.getLocalizedMessage());
+            System.out.println("Chyba pri zápise do súboru: " + Settings.fileNameOrders() + " !!! \n " + e.getLocalizedMessage());
         }
 //        9. Úloha
         try {

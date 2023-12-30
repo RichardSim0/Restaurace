@@ -37,7 +37,7 @@ public class OrderManager {
                 );
             }
         } catch (IOException e) {
-            System.err.println("Chyba pri zápise do súboru: " + fileName + " ! " + e.getLocalizedMessage());
+            throw new RestaurantException("Chyba pri zápise do súboru: " + fileName + " ! " + e.getLocalizedMessage());
         }
     }
     public void loadDataFromOrdersFile(String fileName, String delimiter) throws RestaurantException {
@@ -86,13 +86,13 @@ public class OrderManager {
                 orderList.add(order);
             }
         } catch (FileNotFoundException e) {
-            System.err.println("Súbor: " + fileName + " sa nenašiel! " + e.getLocalizedMessage());
+            throw new RestaurantException("Súbor: " + fileName + " sa nenašiel! " + e.getLocalizedMessage());
         } catch (NumberFormatException e) {
-            System.err.println("Chybný formát čísla na riadku: "+ line + e.getLocalizedMessage());
+            throw new RestaurantException("Chybný formát čísla na riadku: "+ line + e.getLocalizedMessage());
         } catch (PatternSyntaxException e) {
-            System.err.println("Chyba pri čítaní súboru: "+ fileName +" na riadku: " + line + " ! "+ e.getLocalizedMessage());
+            throw new RestaurantException("Chyba pri čítaní súboru: "+ fileName +" na riadku: " + line + " ! "+ e.getLocalizedMessage());
         } catch (DateTimeParseException e) {
-            System.err.println("Chybný formát času v súbore: \""+ fileName + "\" na riadku: \n" + line +" ! "+ e.getLocalizedMessage());
+            throw new RestaurantException("Chybný formát času v súbore: \""+ fileName + "\" na riadku: \n" + line +" ! "+ e.getLocalizedMessage());
         }
     }
     public void add(Order newOrder){

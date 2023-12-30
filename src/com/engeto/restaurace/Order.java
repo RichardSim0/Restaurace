@@ -37,7 +37,7 @@ public class Order implements Comparable<Order>{
 
             System.out.println("Objednávka pre viacero jedál bola prijatá.");
         } catch (IllegalArgumentException e) {
-            System.err.println("Toto jedlo nie je v menu a nemôže byť objednané." + e.getLocalizedMessage());
+            throw new RestaurantException("Toto jedlo nie je v menu a nemôže byť objednané." + e.getLocalizedMessage());
         }
     }
 
