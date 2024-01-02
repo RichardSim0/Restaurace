@@ -23,7 +23,7 @@ public class OrderManager {
                 List<Dish> dishes = order.getDishes();
 
                 String dishesInfo = dishes.stream()
-                        .map(Dish::getTitle)
+                        .map(dish -> String.valueOf(dish.getId()))
                         .collect(Collectors.joining(", "));
 
                 writer.println(
@@ -53,10 +53,10 @@ public class OrderManager {
 
                 int table = Integer.parseInt(items[0]);
 
-                String[] dishTitles = items[1].split(", ");
+                String[] dishIds = items[1].split(", ");
                 List<Dish> dishes = new ArrayList<>();
-                for (String dishTitle : dishTitles) {
-                    Dish dish = Menu.getDishByTitle(dishTitle);
+                for (String dishId : dishIds) {
+                    Dish dish = Menu.getDishByiD(Integer.parseInt(dishId));
                         dishes.add(dish);
                 }
 

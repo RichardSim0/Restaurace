@@ -155,7 +155,7 @@ public class RestaurantManager {
             throw new RestaurantException("Chyba pri zápise do súboru: " + fileName + "! " + e.getLocalizedMessage());
         }
     }
-    public void loadOrdersFromFile(String fileName) throws RestaurantException {
+    public void loadOrdersFromOrdersForTableFile(String fileName) throws RestaurantException {
         String line = "";
         String[] parts;
         int tableNumber = -1;

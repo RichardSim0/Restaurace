@@ -54,9 +54,17 @@ public class Menu {
         }
     }
 
-    public static Dish getDishByTitle(String title) {
+    public static Dish getDishByiD(int id) {
         for (Dish dish : menuList) {
-            if (dish.getTitle().equals(title)) {
+            if (dish.getId() == id) {
+                return dish;
+            }
+        }
+        return null;
+    }
+    public static Dish getDishByTitle(String dishTitle) {
+        for (Dish dish : menuList) {
+            if (dish.getTitle().equals(dishTitle)) {
                 return dish;
             }
         }

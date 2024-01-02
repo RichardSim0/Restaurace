@@ -33,7 +33,7 @@ public class Main {
             System.out.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameOrders()+" ! ---> "+e.getLocalizedMessage());
         }
         try {
-            restaurantManager.loadOrdersFromFile(Settings.fileNameOrdersForTable());
+            restaurantManager.loadOrdersFromOrdersForTableFile(Settings.fileNameOrdersForTable());
         } catch (RestaurantException e) {
             System.out.println("Chyba pri načítaní dát zo súboru: "+Settings.fileNameOrdersForTable()+" ! ---> "+e.getLocalizedMessage());
         }
