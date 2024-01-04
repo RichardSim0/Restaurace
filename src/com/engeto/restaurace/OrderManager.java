@@ -75,9 +75,7 @@ public class OrderManager {
                 if (!items[4].equals("null")) {
                     fulfilmentTime = LocalDateTime.parse(items[4]);
                 }
-                if (fulfilmentTime == null) {
-                    continue;
-                }
+
                 boolean isPaid = Boolean.parseBoolean(items[5]);
                 String note = items[6];
 
