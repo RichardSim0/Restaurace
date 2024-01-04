@@ -75,12 +75,14 @@ public class OrderManager {
                 if (!items[4].equals("null")) {
                     fulfilmentTime = LocalDateTime.parse(items[4]);
                 }
+                if (fulfilmentTime == null) {
+                    continue;
+                }
 
                 boolean isPaid = Boolean.parseBoolean(items[5]);
                 String note = items[6];
 
-                Order order = new Order(table, dishes, waiters, orderedTime,fulfilmentTime, isPaid, note);
-
+                Order order = new Order(table, dishes, waiters, orderedTime, fulfilmentTime, isPaid, note);
                 orderList.add(order);
             }
         } catch (FileNotFoundException e) {

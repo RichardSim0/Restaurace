@@ -60,7 +60,7 @@ public class Main {
         }
 //        ---objednávka na stôl č.2
         try {
-            orderManager.add(new Order(2,menu,List.of(hranolky,kofola,rizek), List.of(waiter1,waiter2), LocalDateTime.now(),false, null));
+            orderManager.add(new Order(2,menu,List.of(hranolky,kofola,rizek), List.of(waiter1,waiter2), LocalDateTime.now(),true, null));
         } catch (RestaurantException e) {
             System.out.println("Chyba pri vytváraní objednávky: " + e.getLocalizedMessage());
         }
